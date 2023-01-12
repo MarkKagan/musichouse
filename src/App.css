@@ -8,5 +8,14 @@ form {
   display: flex;
   flex-direction: column;
 }
-
-
+/* 
+button.text-like :link {
+  background: none;
+  border: none;
+} */
+/* 
+button {
+  padding: 0;
+  border: none;
+  background: none;
+} */

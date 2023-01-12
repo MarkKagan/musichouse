@@ -25,10 +25,19 @@ function Leaflet({ searchResults, searchType }) {
       {searchResults.map((user) => {
         let name =
           user[1][searchType].firstName + " " + user[1][searchType].lastName;
-        let profilePath = `${user[1][searchType].firstName}_${user[1][searchType].lastName}`;
+        // let profilePath = `${user[1][searchType].firstName}_${user[1][searchType].lastName}`;
         return (
-          <Marker position={user[1][searchType].coordinates} icon={customIcon}>
-            <Popup><Link to={`/${profilePath}`}>{name}</Link></Popup>
+          <Marker position={user[1][searchType].coordinates} icon={customIcon} key={user[0]}>
+            <Popup>
+              <button          
+                style={{ backgroundColor: "light-blue" }}
+                onClick={() => {
+                  console.log("test");
+                }}
+              >
+                {name}
+              </button>
+            </Popup>
           </Marker>
         );
       })}

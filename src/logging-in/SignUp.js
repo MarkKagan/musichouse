@@ -30,7 +30,7 @@ function SignUp() {
     try {
       const createdUser = await createNewUser(email, password);
       if (createdUser.user.email) {
-        const databaseUserRef = databaseRef(database, `users/${createdUser.user.uid}`);
+        const databaseUserRef = databaseRef(database, `${createdUser.user.uid}/`);
         const createdUserDB = {
           musician: userInfoInit,
           host: userInfoInit
@@ -49,21 +49,6 @@ function SignUp() {
       console.log("ERROR: ", err);
       setError(err.message);
     }
-    // //create a user in firebase database
-    // try {
-    //   console.log('inside second try')
-    //   const databaseUserRef = databaseRef(
-    //     database,
-    //     `users/${user.uid}`
-    //   );
-    //   const createdUser = {
-    //     musician: {},
-    //     host: {}
-    //   }
-    //   set(databaseUserRef, createdUser);
-    // } catch (error) {
-    //   console.log(error.message);
-    // };
   };
 
   return (

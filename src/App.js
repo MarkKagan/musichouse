@@ -13,6 +13,7 @@ import NoMatch from "./error/NoMatch";
 import LandingPage from "./pages/LandingPage";
 import PersonalProfile from "./pages/PersonalProfile";
 import Search from "./pages/Search";
+import SelectedUsers from "./pages/SelectedUsers";
 
 //clarify whether a protected route always has to be wrapped with <PrivateRoute></PrivateRoute>
 
@@ -38,6 +39,7 @@ function App() {
                   <Route path="/search" element={<Search />} />
                   <Route path="/musician-form" element={<MusicianForm />} />
                   <Route path="/host-form" element={<HostForm />} />
+                  <Route path="/favorites" element={<SelectedUsers />} />
                 </Routes>
               </PrivateRoute>
             }

@@ -11,10 +11,13 @@ function LandingPage() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/personal-profile">Profile</NavLink>
+            <NavLink to="/personal-profile">My Profile</NavLink>
           </li>
           <li>
             <NavLink to="/search">{`Search for ${searchType}s`}</NavLink>
+          </li>
+          <li>
+            <NavLink to="/favorites">Favorites</NavLink>
           </li>
           <li>
             <LogoutButton />

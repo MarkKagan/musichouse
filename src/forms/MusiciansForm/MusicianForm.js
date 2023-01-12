@@ -4,10 +4,12 @@ import { useState } from "react";
 import { update, ref as databaseRef } from "firebase/database";
 import { database } from "../../firebase/index";
 import getCoordinates from "../../getCoordinates";
+import { useNavigate } from "react-router-dom";
 
 function MusicianForm() {
   const userType = "musician";
   const { user } = useUserAuth();
+  const navigate = useNavigate();
 
   const [musicianInputState, setMusicianInputState] = useState({});
 
@@ -57,7 +59,7 @@ function MusicianForm() {
     //send info to database
     const musicianInputDatabaseRef = databaseRef(
       database,
-      `users/${user.uid}/${userType}`
+      `${user.uid}/${userType}`
     );
     try {
       await update(musicianInputDatabaseRef, activatedMusicianInfo);
@@ -80,6 +82,7 @@ function MusicianForm() {
     } catch (error) {
       console.log("ERROR updating user input: ", error);
     }
+    navigate("/home");
   };
 
   return (

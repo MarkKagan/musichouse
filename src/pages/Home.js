@@ -31,11 +31,11 @@ function Home() {
       </p>
 
       <Link to="/landing-page" onClick={loginAsMusician}>
-        <button>Log in as musician</button>
+        <button>Enter as a musician</button>
       </Link>
 
       <Link to="/landing-page" onClick={loginAsHost}>
-        <button>Log in as host</button>
+        <button>Enter as a host</button>
       </Link>
 
       <Link to="/musician-form">

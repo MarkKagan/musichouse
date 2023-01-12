@@ -4,10 +4,12 @@ import { update, ref as databaseRef } from "firebase/database";
 import { database } from "../../firebase/index";
 import { useUserAuth } from "../../firebase/UserAuthContext";
 import getCoordinates from "../../getCoordinates";
+import { useNavigate } from "react-router-dom";
 
 function HostForm() {
   const userType = "host";
   const { user } = useUserAuth();
+  const navigate = useNavigate();
 
   const [hostInputState, setHostInputState] = useState({});
 
@@ -48,7 +50,7 @@ function HostForm() {
     //send info to database
     const hostInputDatabaseRef = databaseRef(
       database,
-      `users/${user.uid}/${userType}`
+      `${user.uid}/${userType}`
     );
     try {
       await update(hostInputDatabaseRef, activatedHostInfo);
@@ -71,6 +73,7 @@ function HostForm() {
     } catch (error) {
       console.log("ERROR updating user input: ", error);
     }
+    navigate("/home");
   };
 
   return (
