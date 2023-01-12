@@ -1,0 +1,39 @@
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { Link } from "react-router-dom";
+
+const center = [52.517501, 13.400554];
+
+const customIcon = L.icon({
+  iconUrl: require("../assets/treble-clef-red-icon.png"),
+  iconSize: [40, 40],
+});
+
+function Leaflet({ searchResults, searchType }) {
+
+  return (
+    <MapContainer
+      center={center}
+      zoom={12}
+      style={{ width: "50vw", height: "50vh" }}
+    >
+      <TileLayer
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      {searchResults.map((user) => {
+        let name =
+          user[1][searchType].firstName + " " + user[1][searchType].lastName;
+        let profilePath = `${user[1][searchType].firstName}_${user[1][searchType].lastName}`;
+        return (
+          <Marker position={user[1][searchType].coordinates} icon={customIcon}>
+            <Popup><Link to={`/${profilePath}`}>{name}</Link></Popup>
+          </Marker>
+        );
+      })}
+    </MapContainer>
+  );
+}
+
+export default Leaflet;
