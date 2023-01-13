@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import {useUserAuth} from "../firebase/UserAuthContext";
 
+import { database } from "../firebase";
+
+
 function Home() {
 
   const {setActiveAs} = useUserAuth();

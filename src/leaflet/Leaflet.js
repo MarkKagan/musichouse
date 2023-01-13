@@ -32,12 +32,12 @@ function Leaflet() {
           <Marker position={val.coordinates} icon={customIcon} key={key}>
             <Popup>
               <button          
-                style={{ backgroundColor: "light-blue" }}
+                // style={{ backgroundColor: "light-blue" }}
                 onClick={() => {
                   console.log("test");
                 }}
               >
-                {name}
+              {name}
               </button>
             </Popup>
           </Marker>
