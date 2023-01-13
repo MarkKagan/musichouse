@@ -1,18 +1,17 @@
 // import { database } from "../firebase";
 // import {ref as databaseRef, child, get} from 'firebase/database';
-// import { useUserAuth } from "../firebase/UserAuthContext";
+import { useUserAuth } from "../firebase/UserAuthContext";
 // import {useEffect, useState} from 'react';
 import Leaflet from '../leaflet/Leaflet';
 import { useFilteredUsersContext } from '../filtered-users-context/FilteredUsersContextProvider'; 
 
 function Search() {
-  const {currentFilteredUsers} = useFilteredUsersContext();
-
-
+  const { searchableUsers, signedInUser } = useFilteredUsersContext();
+  console.log(searchableUsers, signedInUser);
   // const [searchResults, setSearchResults] = useState([]);
-  // const {activeAs} = useUserAuth();
+  const {activeAs} = useUserAuth();
   // console.log('activeAs: ', activeAs);
-  // const searchType = activeAs === 'musician' ? 'host' : 'musician';
+  const searchType = activeAs === 'musician' ? 'host' : 'musician';
   // let filteredUsers = [];
 
   // useEffect(() => {
@@ -37,18 +36,17 @@ function Search() {
 
   //don't forget to use key when creating the list
   return (
-    // <div>
-    //   <Leaflet searchResults={searchResults} searchType={searchType}/>
-    //   <h1>List of available {searchType}s : </h1> 
-    //   {searchResults.map((user) => {
-    //     return (
-    //       <div key={user[0]}>
-    //         <p>{`${user[1][searchType].firstName} ${user[1][searchType].lastName}`}</p>  
-    //       </div>
-    //     );
-    //   })}
-    // </div>
-    <p>Change this ASAP</p>
+    <div>
+      <Leaflet />
+      <h1>List of available {searchType}s : </h1>
+      {searchableUsers.map((user) => {
+        return (
+          <div key={user[0]}>
+            <p>{`${user[1][searchType].firstName} ${user[1][searchType].lastName}`}</p>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

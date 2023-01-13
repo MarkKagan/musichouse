@@ -5,12 +5,11 @@ import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsers
 
 function LandingPage() {
   const { activeAs } = useUserAuth();
+  
   const searchType = activeAs === "musician" ? "host" : "musician";
 
   const {searchableUsers, signedInUser} = useFilteredUsersContext();
-
-  console.log('LandingPage - searchableUsers: ', searchableUsers)
-  console.log('LandingPage - signedInUser: ', signedInUser)
+  console.log(searchableUsers, signedInUser)
 
   return (
     <div>

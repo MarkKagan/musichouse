@@ -5,11 +5,12 @@ import { database } from "../firebase";
 
 
 
-const FilteredUsersContext = createContext({searchableUsers: [], signedInUser: {}});
+const FilteredUsersContext = createContext({searchableUsers: {}, signedInUser: {}});
 
 export const FilteredUsersContextProvider = ({children}) => {
   const {activeAs, user: currentUser} = useUserAuth();
   const signedInUserId = currentUser.uid;  // CHECK THIS! 
+  
   const [searchableUsers, setSearchableUsers] = useState([]);
   const [signedInUser, setSignedInUser] = useState({});
 
@@ -26,10 +27,12 @@ export const FilteredUsersContextProvider = ({children}) => {
         const usersRef = databaseRef(database);
         const allUsers = await get(child(usersRef, '/'));
         if (allUsers.exists()) {
-          console.log(allUsers.val())
           const filteredUsers = Object.fromEntries(Object.entries(allUsers.val()).filter(([key, val]) => {
             return (signedInUserId !== key && val[searchType].active === true);
-          })) //dont forget to map here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          }).map(([key, val]) => {
+            console.log([key, val]);
+            return [key, val[searchType]]; 
+          }));
           const me = Object.fromEntries(
             Object.entries(allUsers.val()).filter(([key, val]) => {
               return signedInUserId === key;
@@ -45,7 +48,7 @@ export const FilteredUsersContextProvider = ({children}) => {
           //   return signedInUserId === user[0];
           // })
           setSearchableUsers(filteredUsers);
-          // setSignedInUser(me);
+          setSignedInUser(me);
         }
       } catch (error) {
         console.log(error);

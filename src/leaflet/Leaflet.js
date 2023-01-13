@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { Link } from "react-router-dom";
+import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 
 const center = [52.517501, 13.400554];
 
@@ -10,7 +11,11 @@ const customIcon = L.icon({
   iconSize: [40, 40],
 });
 
-function Leaflet({ searchResults, searchType }) {
+function Leaflet() {
+
+  const {searchableUsers} = useFilteredUsersContext();
+
+  console.log(searchableUsers)
 
   return (
     <MapContainer
@@ -22,7 +27,7 @@ function Leaflet({ searchResults, searchType }) {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {searchResults.map((user) => {
+      {searchableUsers.map((user) => {
         let name =
           user[1][searchType].firstName + " " + user[1][searchType].lastName;
         // let profilePath = `${user[1][searchType].firstName}_${user[1][searchType].lastName}`;

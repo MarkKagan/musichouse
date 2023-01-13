@@ -1,15 +1,16 @@
 import UserProfile from "../components/UserProfile";
-import { useUserAuth } from "../firebase/UserAuthContext";
+import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 
 function PersonalProfile() {
-  const {user} = useUserAuth();
+  const { signedInUser } = useFilteredUsersContext();
+  
 
   return (
     <div>
-    <div>PersonalProfile</div>
-    <UserProfile />
+      <div>PersonalProfile</div>
+      <UserProfile />
     </div>
-  )
+  );
 }
 
 export default PersonalProfile;
