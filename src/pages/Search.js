@@ -7,7 +7,7 @@ import { useFilteredUsersContext } from '../filtered-users-context/FilteredUsers
 
 function Search() {
   const { searchableUsers, signedInUser } = useFilteredUsersContext();
-  console.log(searchableUsers, signedInUser);
+  // console.log(searchableUsers, signedInUser);
   // const [searchResults, setSearchResults] = useState([]);
   const {activeAs} = useUserAuth();
   // console.log('activeAs: ', activeAs);
@@ -34,15 +34,19 @@ function Search() {
 
   // console.log('searchResults - filteredUsers: ', filteredUsers);
 
+
+
+
+
   //don't forget to use key when creating the list
   return (
     <div>
       <Leaflet />
       <h1>List of available {searchType}s : </h1>
-      {searchableUsers.map((user) => {
+      {Object.entries(searchableUsers).map(([key, val]) => {
         return (
-          <div key={user[0]}>
-            <p>{`${user[1][searchType].firstName} ${user[1][searchType].lastName}`}</p>
+          <div key={key}>
+            <p>{`${val.firstName} ${val.lastName}`}</p>
           </div>
         );
       })}

@@ -15,8 +15,6 @@ function Leaflet() {
 
   const {searchableUsers} = useFilteredUsersContext();
 
-  console.log(searchableUsers)
-
   return (
     <MapContainer
       center={center}
@@ -27,12 +25,11 @@ function Leaflet() {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {searchableUsers.map((user) => {
+      {Object.entries(searchableUsers).map(([key, val]) => {
         let name =
-          user[1][searchType].firstName + " " + user[1][searchType].lastName;
-        // let profilePath = `${user[1][searchType].firstName}_${user[1][searchType].lastName}`;
+          val.firstName + " " + val.lastName;
         return (
-          <Marker position={user[1][searchType].coordinates} icon={customIcon} key={user[0]}>
+          <Marker position={val.coordinates} icon={customIcon} key={key}>
             <Popup>
               <button          
                 style={{ backgroundColor: "light-blue" }}

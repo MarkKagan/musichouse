@@ -10,7 +10,7 @@ const FilteredUsersContext = createContext({searchableUsers: {}, signedInUser: {
 export const FilteredUsersContextProvider = ({children}) => {
   const {activeAs, user: currentUser} = useUserAuth();
   const signedInUserId = currentUser.uid;  // CHECK THIS! 
-  
+
   const [searchableUsers, setSearchableUsers] = useState([]);
   const [signedInUser, setSignedInUser] = useState({});
 
@@ -30,7 +30,6 @@ export const FilteredUsersContextProvider = ({children}) => {
           const filteredUsers = Object.fromEntries(Object.entries(allUsers.val()).filter(([key, val]) => {
             return (signedInUserId !== key && val[searchType].active === true);
           }).map(([key, val]) => {
-            console.log([key, val]);
             return [key, val[searchType]]; 
           }));
           const me = Object.fromEntries(
