@@ -4,12 +4,14 @@ import {auth} from './index';
 
 const UserAuthContext = createContext({
   user: '',
+  activeAs: '',
+  setActiveAs: () => {},
   signUp: (email, password) => {},
   signIn: (email, password) => {},
   logOut: () => {}
 });
 
-export const AuthProvider = (props) => {
+export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [activeAs, setActiveAs] = useState(null);
 
@@ -36,7 +38,7 @@ export const AuthProvider = (props) => {
 
   return (
     <UserAuthContext.Provider value={{user, signUp, signIn, logOut, activeAs, setActiveAs}}>
-      {props.children}
+      {children}
     </UserAuthContext.Provider>
   )  
 };

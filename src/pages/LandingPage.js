@@ -1,10 +1,16 @@
 import LogoutButton from "../logging-in/LogoutButton";
 import { NavLink } from "react-router-dom";
 import { useUserAuth } from "../firebase/UserAuthContext";
+import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 
 function LandingPage() {
   const { activeAs } = useUserAuth();
   const searchType = activeAs === "musician" ? "host" : "musician";
+
+  const {searchableUsers, signedInUser} = useFilteredUsersContext();
+
+  console.log('LandingPage - searchableUsers: ', searchableUsers)
+  console.log('LandingPage - signedInUser: ', signedInUser)
 
   return (
     <div>

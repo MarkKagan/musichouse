@@ -9,11 +9,12 @@ import MusicianForm from "./forms/MusiciansForm/MusicianForm";
 import HostForm from "./forms/HostsForm/HostForm";
 import PrivateRoute from "./routes/PrivateRoute";
 
-import NoMatch from "./error/NoMatch";
 import LandingPage from "./pages/LandingPage";
 import PersonalProfile from "./pages/PersonalProfile";
 import Search from "./pages/Search";
-import SelectedUsers from "./pages/SelectedUsers";
+import Favorites from "./pages/Favorites";
+import { FilteredUsersContextProvider } from "./filtered-users-context/FilteredUsersContextProvider";
+import EvenMorePrivateRoute from "./routes/EvenMorePrivateRoute";
 
 //clarify whether a protected route always has to be wrapped with <PrivateRoute></PrivateRoute>
 
@@ -30,16 +31,31 @@ function App() {
               <PrivateRoute>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/landing-page" element={<LandingPage />} />
-                  <Route
-                    path="/personal-profile"
-                    element={<PersonalProfile />}
-                  />
-                  <Route path="/search" element={<Search />} />
                   <Route path="/musician-form" element={<MusicianForm />} />
                   <Route path="/host-form" element={<HostForm />} />
-                  <Route path="/favorites" element={<SelectedUsers />} />
+                  <Route path="/home" element={<Home />} />
+
+                  <Route
+                    path="*"
+                    element={
+                      <FilteredUsersContextProvider>
+                        <EvenMorePrivateRoute>
+                          <Routes>
+                            <Route
+                              path="/landing-page"
+                              element={<LandingPage />}
+                            />
+                            <Route
+                              path="/personal-profile"
+                              element={<PersonalProfile />}
+                            />
+                            <Route path="/search" element={<Search />} />
+                            <Route path="/favorites" element={<Favorites />} />
+                          </Routes>
+                        </EvenMorePrivateRoute>
+                      </FilteredUsersContextProvider>
+                    }
+                  ></Route>
                 </Routes>
               </PrivateRoute>
             }

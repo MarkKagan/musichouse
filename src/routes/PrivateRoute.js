@@ -10,10 +10,6 @@ function PrivateRoute({children}) {
   }
   return children;
 
-  // if (!user) {
-  //   return <Navigate to='/sign-in' replace state={{from: location}} />
-  // }
-  // return children;
 };
 
 export default PrivateRoute;
