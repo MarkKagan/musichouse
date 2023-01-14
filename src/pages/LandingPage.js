@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 import AccountToggleButton from "../logging-in/AccountToggleButton";
+// import ProfileDropDown from "../components/ProfileDropDown";
 
 function LandingPage() {
   const { activeAs } = useUserAuth();
@@ -16,6 +17,7 @@ function LandingPage() {
       <nav>
         <ul>
           <li>
+            {/* <ProfileDropDown /> */}
             <NavLink to="/personal-profile">Profile</NavLink>
           </li>
           <li>
@@ -33,6 +35,10 @@ function LandingPage() {
         </ul>
       </nav>
     </div>
+    // <nav class="navbar">
+    //   <NavLink to="/favorites">Favorites</NavLink>
+    //   <LogoutButton />
+    // </nav>
   );
 }
 

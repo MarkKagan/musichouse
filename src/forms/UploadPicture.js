@@ -29,33 +29,33 @@ function UploadPicture({ userType }) {
     if (uploadedImage == null) return;
     const storageImageRef = storageRef(
       storage,
-      `profile_pictures/${user.uid}/${userType}`         //is this the best way to organize the paths
+      `profile_pictures/${user.uid}/${userType}`
     );
     uploadBytes(storageImageRef, uploadedImage)
       .then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
           setProfilePicURL(url);
+
+          //write the profile_pic_url under the user_uid in database
+          const databaseImageRef = databaseRef(
+            database,
+            `${user.uid}/${userType}`
+          );
+          const profilePicture = {
+            pictureUrl: url,
+          };
+          update(databaseImageRef, profilePicture)
+            .then(() => {
+              console.log("SUCCESS - profile picture uploaded!");
+            })
+            .catch((error) => {
+              console.log("ERROR uploading profile pic: ", error);
+            });
         });
         alert("Image uploaded");
       })
       .catch((error) => {
         console.log(error.message);
-      });
-
-    //write the profile_pic_url under the user_uid in database
-    const databaseImageRef = databaseRef(
-      database,
-      `users/${user.uid}/${userType}`
-    );
-    const profilePicture = {
-      pictureUrl: profilePicURL,
-    };
-    update(databaseImageRef, profilePicture)
-      .then(() => {
-        console.log("SUCCESS - profile picture uploaded!");
-      })
-      .catch((error) => {
-        console.log("ERROR uploading profile pic: ", error);
       });
   };
 
@@ -63,12 +63,6 @@ function UploadPicture({ userType }) {
     event.preventDefault();
     setUploadedImage(event.target.files[0]);
   };
-
-  // const imagesListRef = ref(storage, "profile_pictures/");
-
-  //here build a useEffect to render the profile pic
-
-  // const avatar = imagesListURLs.length ? imagesListURLs[imagesListURLs.length - 1] : defaultAvatar;
 
   return (
     <>

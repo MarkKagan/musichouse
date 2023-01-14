@@ -1,14 +1,16 @@
+import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 
+function UserProfile() {
+  const {signedInUser} = useFilteredUsersContext();
 
-function UserProfile(props) {
   return (
     <div>
       <img
-        alt={props.firstName + " " + props.lastName}
-        src={props.pictureUrl}
+        alt={signedInUser.firstName + " " + signedInUser.lastName}
+        src={signedInUser.pictureUrl}
       />
 
-      <h2>{props.firstName + " " + props.lastName}</h2>
+      <h2>{signedInUser.firstName + " " + signedInUser.lastName}</h2>
     </div>
   );
 }

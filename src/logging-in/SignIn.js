@@ -3,6 +3,9 @@ import { useUserAuth } from "../firebase/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import FlexBox from "../chakraui/FlexBox";
+
+
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,14 +35,8 @@ function SignIn() {
     }
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate('/home');
-  //   }
-  // }, [navigate, user]);
-
   return (
-    <> 
+    <FlexBox> 
       <h2>Sign In</h2>
       {error && <p>{error}</p>}
       <form onSubmit={login}>
@@ -60,7 +57,7 @@ function SignIn() {
           <Link to="/sign-up"> Sign Up</Link>
         </span>
       </p>
-    </>
+    </FlexBox>
   );
 }
 

@@ -6,6 +6,12 @@ import { set, ref as databaseRef } from "firebase/database";
 import { database } from "../firebase/index";
 import userInfoInit from '../forms/userInfoInit';
 
+import { FormControl, Button } from "@chakra-ui/react";
+
+// import { Box, Flex } from "@chakra-ui/react";
+
+import FlexBox from "../chakraui/FlexBox";
+
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,28 +58,34 @@ function SignUp() {
   };
 
   return (
-    <>
-      <h2>Sign Up</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={register}>
-        <label htmlFor="email-sign-up">Email</label>
-        <input onChange={emailChangeHandler} type="email" id="email-sign-up" />
-        <label htmlFor="password-sign-up">Password</label>
-        <input
-          onChange={passwordChangeHandler}
-          type="password"
-          id="password-sign-up"
-        />
-        <button type="submit">Sign Up</button>
-      </form>
+    
+        <>
+        <h2>Sign Up</h2>
+        {error && <p>{error}</p>}
+        <form onSubmit={register}>
+          <label htmlFor="email-sign-up">Email</label>
+          <input
+            onChange={emailChangeHandler}
+            type="email"
+            id="email-sign-up"
+          />
+          <label htmlFor="password-sign-up">Password</label>
+          <input
+            onChange={passwordChangeHandler}
+            type="password"
+            id="password-sign-up"
+          />
+          <Button type="submit">Sign Up</Button>
+        </form>
 
-      <p>
-        Already have an account?
-        <span>
-          <Link to="/sign-in"> Login</Link>
-        </span>
-      </p>
-    </>
+        <p>
+          Already have an account?
+          <span>
+            <Link to="/sign-in"> Login</Link>
+          </span>
+        </p>
+        </>
+
   );
 }
 

@@ -1,4 +1,8 @@
 import "./App.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import {ThemeToggler2} from "./chakraui/ColorMode";
+
+
 import SignIn from "./logging-in/SignIn";
 import SignUp from "./logging-in/SignUp";
 // import AuthDetails from "./firebase/AuthDetails";
@@ -19,8 +23,9 @@ import EvenMorePrivateRoute from "./routes/EvenMorePrivateRoute";
 //clarify whether a protected route always has to be wrapped with <PrivateRoute></PrivateRoute>
 
 function App() {
+
   return (
-    <div>
+    // <ChakraProvider>
       <AuthProvider>
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
@@ -65,9 +70,8 @@ function App() {
           <Route path="*" element={<SignIn />} />
         </Routes>
 
-        {/* <Route path="*" element={<NoMatch />} /> */}
       </AuthProvider>
-    </div>
+    // </ChakraProvider>
   );
 }
 
