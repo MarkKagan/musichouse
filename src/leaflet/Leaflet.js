@@ -19,7 +19,8 @@ function Leaflet() {
     <MapContainer
       center={center}
       zoom={12}
-      style={{ width: "50vw", height: "50vh" }}
+      style={{ width: "90vw", height: "50vh" }}
+      // borderRadius="20px"
     >
       <TileLayer
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"

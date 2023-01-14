@@ -59,6 +59,7 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Heading
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -68,9 +69,12 @@ import LogoutButton from "../logging-in/LogoutButton";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 import AccountToggleButton from "../logging-in/AccountToggleButton";
+import { useNavigate, Link as ReactLink } from "react-router-dom";
 
 
-const NavLink = ({ children }: { children: ReactNode }) => (
+const NavLink = (
+  { to, children } //: { children: ReactNode } removed
+) => (
   <Link
     px={2}
     py={1}
@@ -79,15 +83,18 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       textDecoration: "none",
       bg: useColorModeValue("yellow.100", "gray.700"),
     }}
-    href={"#"}
+    as={ReactLink}
+    // href={"#"}
+    to={to}
   >
     {children}
   </Link>
 );
 
-export default function Simple() {
+export default function Navigation() {
   const [profilePicUrl, setProfilePicUrl] = useState('');
   const [hasTwoAccounts, setHasTwoAccounts] = useState();
+  const navigate = useNavigate();
   
   const { user, activeAs } = useUserAuth();
   const id = user.uid;
@@ -109,8 +116,13 @@ export default function Simple() {
 
 
   return (
-    <>
-      <Box bg={useColorModeValue("blue.100", "gray.900")} px={4}>
+    <Box backgroundColor="#FEFCBF" zIndex="overlay">
+      <Box
+        bg={useColorModeValue("blue.100", "gray.900")}
+        px={4}
+        borderBottomLeftRadius="20px"
+        borderBottomRightRadius="20px"
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -126,11 +138,23 @@ export default function Simple() {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
+              {/* {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
-              ))}
+              ))} */}
+              <NavLink to="/search">{`Search for ${searchType}s`}</NavLink>
+              <NavLink to="/favorites">Favorites</NavLink>
             </HStack>
           </HStack>
+
+          <Heading
+            fontStyle="oblique"
+            textColor="#FF4651"
+            position="absolute"
+            left="582px"
+          >
+            Music House
+          </Heading>
+
           <Flex alignItems={"center"}>
             <Menu>
               <MenuButton
@@ -146,9 +170,11 @@ export default function Simple() {
                 <MenuItem>Link 1</MenuItem>
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />
-                {hasTwoAccounts && <MenuItem>
-                  <AccountToggleButton />
-                </MenuItem>}
+                {hasTwoAccounts && (
+                  <MenuItem>
+                    <AccountToggleButton />
+                  </MenuItem>
+                )}
                 <MenuDivider />
                 <MenuItem>
                   <LogoutButton />
@@ -168,8 +194,6 @@ export default function Simple() {
           </Box>
         ) : null}
       </Box>
-
-      <Box p={4}>Main Content Here</Box>
-    </>
+    </Box>
   );
 }

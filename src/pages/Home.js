@@ -35,7 +35,7 @@ function Home() {
           Welcome to Music House! Here things are simple. We love classical
           music and want to create a space to help musicians and hosts find each
           other. For details please click{" "}
-          <ChakraLink as={Link} to="/Explanation">
+          <ChakraLink as={Link} to="/explanation">
             <Text color="blue.400" as="i">
               here
             </Text>

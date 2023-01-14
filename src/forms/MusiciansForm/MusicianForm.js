@@ -6,6 +6,19 @@ import { database } from "../../firebase/index";
 import getCoordinates from "../../getCoordinates";
 import { useNavigate } from "react-router-dom";
 
+import {
+  FormControl,
+  Button,
+  Box,
+  Heading,
+  Link as ChakraLink,
+  FormLabel,
+  Input,
+  Text,
+  Center,
+  Textarea,
+} from "@chakra-ui/react";
+
 function MusicianForm() {
   const userType = "musician";
   const { user } = useUserAuth();
@@ -77,99 +90,130 @@ function MusicianForm() {
         houseNumber: musicianInputState.houseNumber,
         postalCode: musicianInputState.postalCode,
       });
-      console.log('coordinates: ', coordinates);
-      await update(musicianInputDatabaseRef, { coordinates: coordinates })
+      console.log("coordinates: ", coordinates);
+      await update(musicianInputDatabaseRef, { coordinates: coordinates });
     } catch (error) {
-      console.log("ERROR updating user input: ", error);
+      console.log("ERROR updating user Input: ", error);
     }
     navigate("/home");
   };
 
   return (
-    <div>
-      <UploadPicture userType={userType} />
-      <form type="submit" id="musician-form" onSubmit={submitMusicianForm}>
-        <label htmlFor="musician-first-name">First Name: </label>
-        <input
-          required
-          type="text"
-          id="musician-first-name"
-          onChange={firstNameChangeHandler}
-        />
+    <Center>
+      <Box
+        width="50%"
+        p={4}
+        borderWidth="3px"
+        borderRadius="20px"
+        borderColor="blue.100"
+      >
+        <Heading textColor="yellow.300" fontStyle="oblique">
+          Become a musician with Music House!
+        </Heading>
 
-        <label htmlFor="musician-last-name">Last Name: </label>
-        <input
-          required
-          type="text"
-          id="musician-last-name"
-          onChange={lastNameChangeHandler}
-        />
+        <UploadPicture userType={userType} />
+        <form type="submit" id="musician-form" onSubmit={submitMusicianForm}>
+          <FormControl>
+            <FormLabel htmlFor="musician-first-name">First Name: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-first-name"
+              onChange={firstNameChangeHandler}
+            />
 
-        <label htmlFor="musician-country">Country: </label>
-        <input
-          required
-          type="text"
-          id="musician-country"
-          onChange={countryChangeHandler}
-        />
+            <FormLabel htmlFor="musician-last-name">Last Name: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-last-name"
+              onChange={lastNameChangeHandler}
+            />
 
-        <label htmlFor="musician-city">City: </label>
-        <input
-          required
-          type="text"
-          id="musician-city"
-          onChange={cityChangeHandler}
-        />
+            <FormLabel htmlFor="musician-country">Country: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-country"
+              onChange={countryChangeHandler}
+            />
 
-        <label htmlFor="musician-street">Street: </label>
-        <input
-          required
-          type="text"
-          id="musician-street"
-          onChange={streetChangeHandler}
-        />
+            <FormLabel htmlFor="musician-city">City: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-city"
+              onChange={cityChangeHandler}
+            />
 
-        <label htmlFor="musician-house-number">House number: </label>
-        <input
-          required
-          type="text"
-          id="musician-house-number"
-          onChange={houseNumberChangeHandler}
-        />
+            <FormLabel htmlFor="musician-street">Street: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-street"
+              onChange={streetChangeHandler}
+            />
 
-        <label htmlFor="musician-postal-code">Postal Code: </label>
-        <input
-          required
-          type="text"
-          id="musician-postal-code"
-          onChange={postalCodeChangeHandler}
-        />
+            <FormLabel htmlFor="musician-house-number">
+              House number:{" "}
+            </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-house-number"
+              onChange={houseNumberChangeHandler}
+            />
 
-        <label htmlFor="musician-email">Email: </label>
-        <input
-          required
-          type="email"
-          id="musician-email"
-          onChange={emailChangeHandler}
-        />
+            <FormLabel htmlFor="musician-postal-code">Postal Code: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="musician-postal-code"
+              onChange={postalCodeChangeHandler}
+            />
 
-        <label htmlFor="musician-phone">Phone Number (optional): </label>
-        <input type="tel" id="musician-phone" onChange={phoneChangeHandler} />
+            <FormLabel htmlFor="musician-email">Email: </FormLabel>
+            <Input
+              required
+              type="email"
+              id="musician-email"
+              onChange={emailChangeHandler}
+            />
 
-        <label htmlFor="musician-description">
-          Write a few words about yourself as a musician and individual. Perhaps
-          what repertoire you like to play, and what you seek from this musical
-          and social interaction.
-        </label>
-        <textarea
-          form="musician-form"
-          type="textarea"
-          id="musician-description"
-          onChange={descriptionChangeHandler}
-        />
-        <button type="submit">Become a Music House musician!</button>
-      </form>
-    </div>
+            <FormLabel htmlFor="musician-phone">
+              Phone Number (optional):{" "}
+            </FormLabel>
+            <Input
+              type="tel"
+              id="musician-phone"
+              onChange={phoneChangeHandler}
+            />
+
+            <FormLabel htmlFor="musician-description">
+              Write a few words about yourself as a musician and individual.
+              Perhaps what repertoire you like to play, and what you seek from
+              this musical and social interaction.
+            </FormLabel>
+            <Textarea
+              form="musician-form"
+              type="textarea"
+              id="musician-description"
+              onChange={descriptionChangeHandler}
+            />
+            <Box display="flex" justifyContent="center">
+              <Button
+                colorScheme="teal"
+                alignSelf="center"
+                marginTop="8px"
+                type="submit"
+              >
+                Submit Musician Form
+              </Button>
+            </Box>
+          </FormControl>
+        </form>
+      </Box>
+    </Center>
   );
 }
 

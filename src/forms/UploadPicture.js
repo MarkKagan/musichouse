@@ -14,6 +14,21 @@ import { useState, useEffect } from "react";
 // import { v4 } from "uuid";
 import { useUserAuth } from "../firebase/UserAuthContext";
 
+import {
+  FormControl,
+  Button,
+  Box,
+  Heading,
+  Link as ChakraLink,
+  FormLabel,
+  Input,
+  Text,
+  Center,
+  Textarea,
+  Image,
+  HStack
+} from "@chakra-ui/react";
+
 function UploadPicture({ userType }) {
   const defaultAvatar = require("../assets/default_avatar.png");
 
@@ -65,14 +80,32 @@ function UploadPicture({ userType }) {
   };
 
   return (
-    <>
-      <input type="file" onChange={onFileSelect} />
-      <button disabled={!uploadedImage} onClick={uploadedImageHandler}>
-        Upload Picture
-      </button>
+    <Box>
+      {/* <img className="profile_pic" alt="profile" src={profilePicURL} /> */}
+      <Box boxSize="sm">
+        <Image
+          src={profilePicURL}
+          alt="profile"
+          borderRadius="15px"
+          maxWidth="150px"
+          maxHeight="150px"
+        />
+      </Box>
+      <HStack>
+        <Input placeholder="Select File" type="file" onChange={onFileSelect} />
 
-      <img className="profile_pic" alt="profile" src={profilePicURL} />
-    </>
+        <Button
+          colorScheme="teal"
+          alignSelf="center"
+          marginTop="8px"
+          type="submit"
+          disabled={!uploadedImage}
+          onClick={uploadedImageHandler}
+        >
+          Upload Picture
+        </Button>
+      </HStack>
+    </Box>
   );
 }
 

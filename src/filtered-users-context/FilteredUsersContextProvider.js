@@ -28,8 +28,6 @@ export const FilteredUsersContextProvider = ({children}) => {
         const allUsers = await get(child(usersRef, '/'));
         if (allUsers.exists()) {
           const filteredUsers = Object.fromEntries(Object.entries(allUsers.val()).filter(([key, val]) => {
-            console.log('key', key)
-            console.log('val', val)
             return (signedInUserId !== key && val[searchType].active === true);
           }).map(([key, val]) => {
             return [key, val[searchType]]; 

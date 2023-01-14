@@ -4,7 +4,20 @@ import { update, ref as databaseRef } from "firebase/database";
 import { database } from "../../firebase/index";
 import { useUserAuth } from "../../firebase/UserAuthContext";
 import getCoordinates from "../../getCoordinates";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
+
+import {
+  FormControl,
+  Button,
+  Box,
+  Heading,
+  Link as ChakraLink,
+  FormLabel,
+  Input,
+  Text,
+  Center,
+  Textarea,
+} from "@chakra-ui/react";
 
 function HostForm() {
   const userType = "host";
@@ -68,98 +81,121 @@ function HostForm() {
         houseNumber: hostInputState.houseNumber,
         postalCode: hostInputState.postalCode,
       });
-      console.log('coordinates: ', coordinates);
-      await update(hostInputDatabaseRef, { coordinates: coordinates })
+      await update(hostInputDatabaseRef, { coordinates: coordinates });
     } catch (error) {
-      console.log("ERROR updating user input: ", error);
+      console.log("ERROR updating user Input: ", error);
     }
     navigate("/home");
   };
 
   return (
-    <div>
-      <UploadPicture userType={userType} />
-      <form type="submit" id="host-form" onSubmit={submitHostForm}>
-        <label htmlFor="host-first-name">First Name: </label>
-        <input
-          required
-          type="text"
-          id="host-first-name"
-          onChange={firstNameChangeHandler}
-        />
+    <Center>
+      <Box
+        width="50%"
+        p={4}
+        borderWidth="3px"
+        borderRadius="20px"
+        borderColor="blue.100"
+      >
+        <Heading textColor="yellow.300" fontStyle="oblique">
+          Become a host with Music House!
+        </Heading>
+        <UploadPicture userType={userType} />
+        <form type="submit" id="host-form" onSubmit={submitHostForm}>
+          <FormControl>
+            <FormLabel htmlFor="host-first-name">First Name: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-first-name"
+              onChange={firstNameChangeHandler}
+            />
 
-        <label htmlFor="host-last-name">Last Name: </label>
-        <input
-          required
-          type="text"
-          id="host-last-name"
-          onChange={lastNameChangeHandler}
-        />
+            <FormLabel htmlFor="host-last-name">Last Name: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-last-name"
+              onChange={lastNameChangeHandler}
+            />
 
-        <label htmlFor="host-country">Country: </label>
-        <input
-          required
-          type="text"
-          id="host-country"
-          onChange={countryChangeHandler}
-        />
+            <FormLabel htmlFor="host-country">Country: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-country"
+              onChange={countryChangeHandler}
+            />
 
-        <label htmlFor="host-city">City: </label>
-        <input
-          required
-          type="text"
-          id="host-city"
-          onChange={cityChangeHandler}
-        />
+            <FormLabel htmlFor="host-city">City: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-city"
+              onChange={cityChangeHandler}
+            />
 
-        <label htmlFor="host-street">Street: </label>
-        <input
-          required
-          type="text"
-          id="host-street"
-          onChange={streetChangeHandler}
-        />
+            <FormLabel htmlFor="host-street">Street: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-street"
+              onChange={streetChangeHandler}
+            />
 
-        <label htmlFor="street">House number: </label>
-        <input
-          required
-          type="text"
-          id="host-house-number"
-          onChange={houseNumberChangeHandler}
-        />
+            <FormLabel htmlFor="street">House number: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-house-number"
+              onChange={houseNumberChangeHandler}
+            />
 
-        <label htmlFor="host-postal-code">Postal Code: </label>
-        <input
-          required
-          type="text"
-          id="host-postal-code"
-          onChange={postalCodeChangeHandler}
-        />
+            <FormLabel htmlFor="host-postal-code">Postal Code: </FormLabel>
+            <Input
+              required
+              type="text"
+              id="host-postal-code"
+              onChange={postalCodeChangeHandler}
+            />
 
-        <label htmlFor="host-email">Email: </label>
-        <input
-          required
-          type="email"
-          id="host-email"
-          onChange={emailChangeHandler}
-        />
+            <FormLabel htmlFor="host-email">Email: </FormLabel>
+            <Input
+              required
+              type="email"
+              id="host-email"
+              onChange={emailChangeHandler}
+            />
 
-        <label htmlFor="host-phone">Phone Number (optional): </label>
-        <input type="tel" id="host-phone" onChange={phoneChangeHandler} />
+            <FormLabel htmlFor="host-phone">
+              Phone Number (optional):{" "}
+            </FormLabel>
+            <Input type="tel" id="host-phone" onChange={phoneChangeHandler} />
 
-        <label htmlFor="host-description">
-          Please briefly introduce yourself and tell us why you are interested
-          to host classical music socials.
-        </label>
-        <textarea
-          form="host-form"
-          type="textarea"
-          id="host-description"
-          onChange={descriptionChangeHandler}
-        />
-        <button type="submit">Become a Music House host!</button>
-      </form>
-    </div>
+            <FormLabel htmlFor="host-description">
+              Please briefly introduce yourself and tell us why you are
+              interested to host classical music socials.
+            </FormLabel>
+            <Textarea
+              form="host-form"
+              type="textarea"
+              id="host-description"
+              onChange={descriptionChangeHandler}
+            />
+            <Box display="flex" justifyContent="center">
+              <Button
+                colorScheme="teal"
+                alignSelf="center"
+                marginTop="8px"
+                type="submit"
+              >
+                Submit Host Form
+              </Button>
+            </Box>
+          </FormControl>
+        </form>
+      </Box>
+    </Center>
   );
 }
 

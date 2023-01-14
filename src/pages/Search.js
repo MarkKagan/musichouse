@@ -5,6 +5,10 @@ import { useUserAuth } from "../firebase/UserAuthContext";
 import Leaflet from '../leaflet/Leaflet';
 import { useFilteredUsersContext } from '../filtered-users-context/FilteredUsersContextProvider'; 
 
+
+import { VStack, Box, Text, Heading, StackDivider, Center  } from "@chakra-ui/react";
+import SearchedUser from "../components/SearchedUser";
+
 function Search() {
   const { searchableUsers, signedInUser } = useFilteredUsersContext();
   // console.log(searchableUsers, signedInUser);
@@ -40,17 +44,61 @@ function Search() {
 
   //don't forget to use key when creating the list
   return (
-    <div>
-      <Leaflet />
-      <h1>List of available {searchType}s : </h1>
-      {Object.entries(searchableUsers).map(([key, val]) => {
-        return (
-          <div key={key}>
-            <p>{`${val.firstName} ${val.lastName}`}</p>
-          </div>
-        );
-      })}
-    </div>
+    // <Center backgroundColor="yellow.100" display="flex-bloc" justifyContent="center">
+    <Box backgroundColor="yellow.100">
+      <Box display="flex-block">
+        <Heading
+          fontWeight="thin"
+          textColor="#FF4651"
+          display="flex"
+          justifyContent="center"
+        >
+          Available {searchType}s :{" "}
+        </Heading>
+        <Box margin="20px" display="flex" justifyContent="center">
+          <Leaflet />
+        </Box>
+      </Box>
+
+      <Box
+        // width="50%"
+        // p={4}
+        // borderWidth="3px"
+        // borderRadius="20px"
+        // borderColor="blue.100"
+        display="flex"
+        justifyContent="center"
+      >
+        <VStack
+          divider={<StackDivider borderColor="gray.200" />}
+          spacing={4}
+          align="stretch"
+          width="50%"
+          p={4}
+          borderWidth="3px"
+          borderRadius="20px"
+          borderColor="blue.100"
+        >
+          {Object.entries(searchableUsers).map(([key, val]) => {
+          const name = val.firstName + ' ' + val.lastName;
+          // const pictureUrl = val.pictureUrl ? val.pictureUrl : '..assets/default_avatar.png';
+          const pictureUrl = val.pictureUrl;
+          const description = val.description;
+          return (
+            <SearchedUser name={name} pictureUrl={pictureUrl} description={description} key={key}/>
+          );
+        })}
+          {/* <SearchedUser
+            name={name}
+            pictureUrl={pictureUrl}
+            description={description}
+            key={key}
+          /> */}
+        </VStack>
+      </Box>
+    </Box>
+
+    // </Center>
   );
 }
 

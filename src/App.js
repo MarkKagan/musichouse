@@ -1,4 +1,3 @@
-import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 
 
@@ -6,13 +5,13 @@ import SignIn from "./logging-in/SignIn";
 import SignUp from "./logging-in/SignUp";
 // import AuthDetails from "./firebase/AuthDetails";
 import { AuthProvider } from "./firebase/UserAuthContext";
-import { Navigate, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import MusicianForm from "./forms/MusiciansForm/MusicianForm";
 import HostForm from "./forms/HostsForm/HostForm";
 import PrivateRoute from "./routes/PrivateRoute";
 
-import LandingPage from "./pages/LandingPage";
+import Navigation from "./pages/Navigation";
 import PersonalProfile from "./pages/PersonalProfile";
 import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
@@ -20,7 +19,6 @@ import { FilteredUsersContextProvider } from "./filtered-users-context/FilteredU
 import EvenMorePrivateRoute from "./routes/EvenMorePrivateRoute";
 import Explanation from "./pages/Explanation";
 
-//clarify whether a protected route always has to be wrapped with <PrivateRoute></PrivateRoute>
 
 function App() {
 
@@ -46,7 +44,7 @@ function App() {
                     element={
                       <FilteredUsersContextProvider>
                         <EvenMorePrivateRoute>
-                          <LandingPage /> 
+                          <Navigation />
                           <Routes>
                             <Route
                               path="/personal-profile"
@@ -67,7 +65,6 @@ function App() {
           {/* <AuthDetails /> */}
           <Route path="*" element={<SignIn />} />
         </Routes>
-
       </AuthProvider>
     </ChakraProvider>
   );
