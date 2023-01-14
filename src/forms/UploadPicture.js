@@ -1,30 +1,18 @@
-//some error is preventing the fetching of profile_pictures!
-//prefix reference vs. item reference in the returned object
-
 import { storage } from "../firebase/index";
 import {
   ref as storageRef,
   uploadBytes,
-  listAll,
   getDownloadURL,
 } from "firebase/storage";
 import { database } from "../firebase/index";
 import { ref as databaseRef, update } from "firebase/database";
 import { useState, useEffect } from "react";
-// import { v4 } from "uuid";
 import { useUserAuth } from "../firebase/UserAuthContext";
 
 import {
-  FormControl,
   Button,
   Box,
-  Heading,
-  Link as ChakraLink,
-  FormLabel,
   Input,
-  Text,
-  Center,
-  Textarea,
   Image,
   HStack
 } from "@chakra-ui/react";
@@ -81,8 +69,7 @@ function UploadPicture({ userType }) {
 
   return (
     <Box>
-      {/* <img className="profile_pic" alt="profile" src={profilePicURL} /> */}
-      <Box boxSize="sm">
+      <Box boxSize="auto" margin="10px">
         <Image
           src={profilePicURL}
           alt="profile"
