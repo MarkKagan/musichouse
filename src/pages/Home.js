@@ -50,7 +50,12 @@ function Home() {
           profile later.
         </Text>
 
-        <Box display="flex" flexWrap="wrap" justifyContent="center" alignItems="center">
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Box margin="20px">
             <ChakraLink
               style={{ textDecoration: "none" }}
@@ -61,9 +66,9 @@ function Home() {
               <Button colorScheme="yellow">Enter as a musician</Button>
             </ChakraLink>
 
-            <Text>
-              <ChakraLink color="blue.300" as={Link} to="/musician-form">
-                <span>Register as a musician</span>
+            <Text fontSize="sm" display="flex" justifyContent="center">
+              <ChakraLink color="blue.400" as={Link} to="/musician-form">
+                Register as a musician
               </ChakraLink>
             </Text>
           </Box>
@@ -77,8 +82,8 @@ function Home() {
             >
               <Button colorScheme="blue">Enter as a host</Button>
             </ChakraLink>
-            <Text>
-              <ChakraLink color="blue.300" as={Link} to="/host-form">
+            <Text fontSize="sm" display="flex" justifyContent="center">
+              <ChakraLink color="blue.400" as={Link} to="/host-form">
                 <span>Register as a host</span>
               </ChakraLink>
             </Text>
