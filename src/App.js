@@ -46,11 +46,8 @@ function App() {
                     element={
                       <FilteredUsersContextProvider>
                         <EvenMorePrivateRoute>
+                          <LandingPage /> 
                           <Routes>
-                            <Route
-                              path="/landing-page"
-                              element={<LandingPage />}
-                            />
                             <Route
                               path="/personal-profile"
                               element={<PersonalProfile />}

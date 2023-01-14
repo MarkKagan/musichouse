@@ -14,8 +14,10 @@ function AccountToggleButton() {
     }; 
   }
 
+  const toggleName = activeAs === 'musician' ? 'host' : 'musician';
+
   return (
-    <button onClick={toggleAccount}>Toggle Account</button>
+    <button onClick={toggleAccount}>{`Login as ${toggleName}`}</button>
   )
 }
 

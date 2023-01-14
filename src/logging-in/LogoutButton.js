@@ -6,8 +6,8 @@ function LogoutButton() {
   const navigate = useNavigate();
 
   const logOut = () => {
-    navigate('/sign-in');
     signOff();
+    navigate('/sign-in');
   }
 
   return (

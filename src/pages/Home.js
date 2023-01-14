@@ -4,7 +4,6 @@ import {useUserAuth} from "../firebase/UserAuthContext";
 import {
   Button,
   Box,
-  Heading,
   Link as ChakraLink,
   Text,
   Center,
