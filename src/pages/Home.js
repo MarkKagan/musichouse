@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import {useUserAuth} from "../firebase/UserAuthContext";
 
-import { database } from "../firebase";
-
+import {
+  Button,
+  Box,
+  Heading,
+  Link as ChakraLink,
+  Text,
+  Center,
+} from "@chakra-ui/react";
 
 function Home() {
 
@@ -15,39 +21,71 @@ function Home() {
     setActiveAs('host');
   };
 
+
   return (
-    <>
-      <p>
-        Welcome to Music House! Here things are simple. We love classical music
-        and want to create a space to help musicians and hosts find each other.
-        For details please click{" "}
-        <Link>
-          <span>here</span>
-        </Link>
-        .
-      </p>
-      <br />
-      <p>
-        The first step is to register as either a musician or ensemble, or a
-        host. If you are interested in both, you will be able to add another
-        profile later.
-      </p>
+    <Center marginTop="40px">
+      <Box
+        width="60%"
+        p={4}
+        borderWidth="3px"
+        borderRadius="20px"
+        borderColor="blue.100"
+        alignSelf="center"
+      >
+        <Text>
+          Welcome to Music House! Here things are simple. We love classical
+          music and want to create a space to help musicians and hosts find each
+          other. For details please click{" "}
+          <ChakraLink as={Link} to="/Explanation">
+            <Text color="blue.400" as="i">
+              here
+            </Text>
+          </ChakraLink>
+          .
+        </Text>
+        <br />
+        <Text>
+          The first step is to register as either a musician or ensemble, or a
+          host. If you are interested in both, you will be able to add another
+          profile later.
+        </Text>
 
-      <Link to="/landing-page" onClick={loginAsMusician}>
-        <button>Enter as a musician</button>
-      </Link>
+        <Box display="flex" flexWrap="wrap" justifyContent="center" alignItems="center">
+          <Box margin="20px">
+            <ChakraLink
+              style={{ textDecoration: "none" }}
+              as={Link}
+              to="/landing-page"
+              onClick={loginAsMusician}
+            >
+              <Button colorScheme="yellow">Enter as a musician</Button>
+            </ChakraLink>
 
-      <Link to="/landing-page" onClick={loginAsHost}>
-        <button>Enter as a host</button>
-      </Link>
+            <Text>
+              <ChakraLink color="blue.300" as={Link} to="/musician-form">
+                <span>Register as a musician</span>
+              </ChakraLink>
+            </Text>
+          </Box>
 
-      <Link to="/musician-form">
-        <span>Register as a musician</span>
-      </Link>
-      <Link to="/host-form">
-        <span>Register as a host</span>
-      </Link>
-    </>
+          <Box margin="20px">
+            <ChakraLink
+              style={{ textDecoration: "none" }}
+              as={Link}
+              to="/landing-page"
+              onClick={loginAsHost}
+            >
+              <Button colorScheme="blue">Enter as a host</Button>
+            </ChakraLink>
+            <Text>
+              <ChakraLink color="blue.300" as={Link} to="/host-form">
+                <span>Register as a host</span>
+              </ChakraLink>
+            </Text>
+          </Box>
+        </Box>
+      </Box>
+    </Center>
   );
 }
 

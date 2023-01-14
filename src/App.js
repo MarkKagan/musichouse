@@ -1,6 +1,5 @@
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import {ThemeToggler2} from "./chakraui/ColorMode";
 
 
 import SignIn from "./logging-in/SignIn";
@@ -19,17 +18,19 @@ import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
 import { FilteredUsersContextProvider } from "./filtered-users-context/FilteredUsersContextProvider";
 import EvenMorePrivateRoute from "./routes/EvenMorePrivateRoute";
+import Explanation from "./pages/Explanation";
 
 //clarify whether a protected route always has to be wrapped with <PrivateRoute></PrivateRoute>
 
 function App() {
 
   return (
-    // <ChakraProvider>
+    <ChakraProvider>
       <AuthProvider>
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/explanation" element={<Explanation />} />
           <Route
             path="*"
             element={
@@ -71,7 +72,7 @@ function App() {
         </Routes>
 
       </AuthProvider>
-    // </ChakraProvider>
+    </ChakraProvider>
   );
 }
 

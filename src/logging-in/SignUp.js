@@ -6,11 +6,18 @@ import { set, ref as databaseRef } from "firebase/database";
 import { database } from "../firebase/index";
 import userInfoInit from '../forms/userInfoInit';
 
-import { FormControl, Button } from "@chakra-ui/react";
+import {
+  FormControl,
+  Button,
+  Box,
+  Heading,
+  Link as ChakraLink,
+  FormLabel,
+  Input,
+  Text,
+  Center
+} from "@chakra-ui/react";
 
-// import { Box, Flex } from "@chakra-ui/react";
-
-import FlexBox from "../chakraui/FlexBox";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -57,35 +64,56 @@ function SignUp() {
     }
   };
 
+
   return (
-    
-        <>
-        <h2>Sign Up</h2>
-        {error && <p>{error}</p>}
+    <Center marginTop="40px">
+      <Box
+        width="50%"
+        p={4}
+        borderWidth="3px"
+        borderRadius="20px"
+        borderColor="blue.100"
+      >
+        <Heading color="yellow.300" textAlign="center">
+          Sign Up
+        </Heading>
+        {error && <Text color="red">{error}</Text>}
         <form onSubmit={register}>
-          <label htmlFor="email-sign-up">Email</label>
-          <input
-            onChange={emailChangeHandler}
-            type="email"
-            id="email-sign-up"
-          />
-          <label htmlFor="password-sign-up">Password</label>
-          <input
-            onChange={passwordChangeHandler}
-            type="password"
-            id="password-sign-up"
-          />
-          <Button type="submit">Sign Up</Button>
+          <FormControl>
+            <FormLabel htmlFor="email-sign-up">Email</FormLabel>
+            <Input
+              onChange={emailChangeHandler}
+              type="email"
+              id="email-sign-up"
+            />
+            {/* {error && <FormErrorMessage>{error.message}</FormErrorMessage>} */}
+            <br />
+            <FormLabel htmlFor="password-sign-up">Password</FormLabel>
+            <Input
+              onChange={passwordChangeHandler}
+              type="password"
+              id="password-sign-up"
+            />
+            <Button
+              colorScheme="teal"
+              alignSelf="center"
+              marginTop="8px"
+              type="submit"
+            >
+              Sign Up
+            </Button>
+          </FormControl>
         </form>
 
-        <p>
-          Already have an account?
-          <span>
-            <Link to="/sign-in"> Login</Link>
-          </span>
-        </p>
-        </>
-
+        <Text>
+          Already have an account?{" "}
+          <ChakraLink color="blue.300" as={Link} to="/sign-in">
+            {" "}
+            Login
+          </ChakraLink>
+        </Text>
+      </Box>
+    </Center>
   );
 }
 

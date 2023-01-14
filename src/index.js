@@ -4,13 +4,9 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
-import { ColorModeScript } from "@chakra-ui/react";
-import theme from "./chakraui/ColorMode";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <BrowserRouter>
       <App />
     </BrowserRouter>

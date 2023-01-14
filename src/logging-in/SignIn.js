@@ -3,7 +3,19 @@ import { useUserAuth } from "../firebase/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import FlexBox from "../chakraui/FlexBox";
+import {
+  FormControl,
+  Button,
+  Box,
+  Heading,
+  Link as ChakraLink,
+  FormLabel,
+  Input,
+  RangeSliderThumb,
+  Text,
+  FormErrorMessage,
+  Center,
+} from "@chakra-ui/react";
 
 
 function SignIn() {
@@ -20,7 +32,7 @@ function SignIn() {
     setPassword(event.target.value);
   };
 
-  const { signIn: logIn} = useUserAuth();
+  const { signIn: logIn } = useUserAuth();
 
   const navigate = useNavigate();
   const login = async (event) => {
@@ -28,7 +40,7 @@ function SignIn() {
     try {
       const signedInUser = await logIn(email, password);
       if (signedInUser.user.email) {
-        navigate('/home');
+        navigate("/home");
       }
     } catch (err) {
       setError(err.message);
@@ -36,28 +48,50 @@ function SignIn() {
   };
 
   return (
-    <FlexBox> 
-      <h2>Sign In</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={login}>
-        <label htmlFor="email-sign-in">Email</label>
-        <input onChange={emailChangeHandler} type="email" id="email-sign-in" />
-        <label htmlFor="password-sign-in">Password</label>
-        <input
-          onChange={passwordChangeHandler}
-          type="password"
-          id="password-sign-in"
-        />
-        <button type="submit">Sign In</button>
-      </form>
+    <Center marginTop="40px">
+      <Box
+        width="50%"
+        p={4}
+        borderWidth="3px"
+        borderRadius="20px"
+        borderColor="blue.100"
+        alignSelf="center"
+      >
+        <Heading color="yellow.300" textAlign="center">
+          Sign In
+        </Heading>
+        {error && <Text color="red">{error}</Text>}
+        <form onSubmit={login}>
+          <FormControl>
+            <FormLabel htmlFor="email-sign-in">Email</FormLabel>
+            <Input
+              onChange={emailChangeHandler}
+              type="email"
+              id="email-sign-in"
+            />
+            {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+            <br />
+            <FormLabel htmlFor="password-sign-in">Password</FormLabel>
+            <Input
+              onChange={passwordChangeHandler}
+              type="password"
+              id="password-sign-in"
+            />
+            <Button colorScheme="teal" marginTop="8px" type="submit">
+              Sign In
+            </Button>
+          </FormControl>
+        </form>
 
-      <p>
-        Not registered yet?
-        <span>
-          <Link to="/sign-up"> Sign Up</Link>
-        </span>
-      </p>
-    </FlexBox>
+        <Text>
+          Not registered yet?{" "}
+          <ChakraLink color="blue.300" as={Link} to="/sign-up">
+            {" "}
+            Sign Up
+          </ChakraLink>
+        </Text>
+      </Box>
+    </Center>
   );
 }
 
