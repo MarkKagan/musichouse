@@ -13,4 +13,4 @@ function FooterSpace() {
   );
 }
 
-export default FooterSpace
+export default FooterSpace;

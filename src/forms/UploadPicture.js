@@ -6,7 +6,7 @@ import {
 } from "firebase/storage";
 import { database } from "../firebase/index";
 import { ref as databaseRef, update } from "firebase/database";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUserAuth } from "../firebase/UserAuthContext";
 
 import {
@@ -22,7 +22,6 @@ function UploadPicture({ userType }) {
 
   const [uploadedImage, setUploadedImage] = useState(null); //for selecting file to upload
   const [profilePicURL, setProfilePicURL] = useState(defaultAvatar); //for setting user profile pic
-  // const [imagesListURLs, setImagesListURLs] = useState([]); //for extracting all of the pic url's in storage
 
   const { user } = useUserAuth();
 

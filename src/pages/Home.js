@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import {useUserAuth} from "../firebase/UserAuthContext";
+import { useUserAuth } from "../firebase/UserAuthContext";
+import { database } from "../firebase";
+import { useState, useEffect } from "react";
+import { ref as databaseRef, child, get } from "firebase/database";
 
 import {
   Button,
@@ -10,16 +13,58 @@ import {
 } from "@chakra-ui/react";
 
 function Home() {
+  const { user } = useUserAuth();
+  const [signedInUser, setSignedInUser] = useState({});
+  const [accounts, setAccounts] = useState({});
 
-  const {setActiveAs} = useUserAuth();
+  useEffect(() => {
+    const unsubscribe = async () => {
+      try {
+        const usersRef = databaseRef(database);
+        const allUsers = await get(child(usersRef, "/"));
+        if (allUsers.exists()) {
+          const me = Object.fromEntries(
+            Object.entries(allUsers.val()).filter(([key, val]) => {
+              return user.uid === key;
+            })
+          );
+          setSignedInUser(me);
+        }
+        if (!signedInUser) return;
+        else {
+          if (
+            signedInUser[user.uid]["musician"] &&
+            signedInUser[user.uid]["musician"].active
+          ) {
+            setAccounts({ musician: true });
+          }
+          if (
+            signedInUser[user.uid]["host"] &&
+            signedInUser[user.uid]["host"].active
+          ) {
+            setAccounts({ host: true });
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    unsubscribe();
+
+    return () => {
+      unsubscribe();
+    };
+  }, [signedInUser]);
+
+  const { setActiveAs } = useUserAuth();
 
   const loginAsMusician = () => {
-    setActiveAs('musician');
+    setActiveAs("musician");
   };
   const loginAsHost = () => {
-    setActiveAs('host');
+    setActiveAs("host");
   };
-
 
   return (
     <Center marginTop="40px">
@@ -62,14 +107,18 @@ function Home() {
               to="/landing-page"
               onClick={loginAsMusician}
             >
-              <Button colorScheme="yellow">Enter as a musician</Button>
+              <Button disabled={!accounts.musician} colorScheme="yellow">
+                Enter as a musician
+              </Button>
             </ChakraLink>
 
-            <Text fontSize="sm" display="flex" justifyContent="center">
-              <ChakraLink color="blue.400" as={Link} to="/musician-form">
-                Register as a musician
-              </ChakraLink>
-            </Text>
+            {!accounts.musician && (
+              <Text fontSize="sm" display="flex" justifyContent="center">
+                <ChakraLink color="blue.400" as={Link} to="/musician-form">
+                  Register as a musician
+                </ChakraLink>
+              </Text>
+            )}
           </Box>
 
           <Box margin="20px">
@@ -79,13 +128,17 @@ function Home() {
               to="/landing-page"
               onClick={loginAsHost}
             >
-              <Button colorScheme="blue">Enter as a host</Button>
+              <Button disabled={!accounts.host} colorScheme="blue">
+                Enter as a host
+              </Button>
             </ChakraLink>
-            <Text fontSize="sm" display="flex" justifyContent="center">
-              <ChakraLink color="blue.400" as={Link} to="/host-form">
-                <span>Register as a host</span>
-              </ChakraLink>
-            </Text>
+            {!accounts.host && (
+              <Text fontSize="sm" display="flex" justifyContent="center">
+                <ChakraLink color="blue.400" as={Link} to="/host-form">
+                  <span>Register as a host</span>
+                </ChakraLink>
+              </Text>
+            )}
           </Box>
         </Box>
       </Box>

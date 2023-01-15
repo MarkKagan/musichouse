@@ -37,24 +37,14 @@ export const FilteredUsersContextProvider = ({children}) => {
               return signedInUserId === key;
             })
           );
-          // const filteredUsers = usersArray.filter((user) => { //HERE THE INDEX SHOULD CORRESPOND TO THE USER UID
-          //   return (signedInUserId !== user[0] && user[1][searchType].active === true)
-          // })
-          // .map((entireUser) => {
-          //   return {entireUser[0]: entireUser[searchType]}
-          // }) //perform a map HERE!  
-          // const me = usersArray.filter((user) => {
-          //   return signedInUserId === user[0];
-          // })
           setSearchableUsers(filteredUsers);
           setSignedInUser(me);
-          // console.log(me)
         }
       } catch (error) {
         console.log(error);
       }
     };
-    emptyFilteredUsers(); //make sure this is correct!
+    emptyFilteredUsers(); 
 
     return () => {
       emptyFilteredUsers();

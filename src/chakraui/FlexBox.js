@@ -1,11 +1,11 @@
-import { Box, Flex } from "@chakra-ui/react";
+// import { Box, Flex } from "@chakra-ui/react";
 
-function FlexBox({ children }) {
-  return (
-    <Flex align="center" justify="center">
-      {children}
-    </Flex>
-  );
-}
+// function FlexBox({ children }) {
+//   return (
+//     <Flex align="center" justify="center">
+//       {children}
+//     </Flex>
+//   );
+// }
 
-export default FlexBox;
+// export default FlexBox;

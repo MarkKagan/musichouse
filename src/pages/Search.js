@@ -6,7 +6,7 @@ import Leaflet from '../leaflet/Leaflet';
 import { useFilteredUsersContext } from '../filtered-users-context/FilteredUsersContextProvider'; 
 
 
-import { VStack, Box, Text, Heading, StackDivider, Center  } from "@chakra-ui/react";
+import { VStack, Box, Heading, StackDivider } from "@chakra-ui/react";
 import SearchedUser from "../components/SearchedUser";
 
 function Search() {
@@ -81,11 +81,10 @@ function Search() {
         >
           {Object.entries(searchableUsers).map(([key, val]) => {
           const name = val.firstName + ' ' + val.lastName;
-          // const pictureUrl = val.pictureUrl ? val.pictureUrl : '..assets/default_avatar.png';
           const pictureUrl = val.pictureUrl;
           const description = val.description;
           return (
-            <SearchedUser name={name} pictureUrl={pictureUrl} description={description} key={key}/>
+            <SearchedUser id={key} name={name} pictureUrl={pictureUrl} description={description} key={key}/>
           );
         })}
         </VStack>

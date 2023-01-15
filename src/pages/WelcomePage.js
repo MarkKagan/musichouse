@@ -3,31 +3,33 @@ import {
   Box,
   Link as ChakraLink,
   Text,
-  Center,
   Heading,
   VStack,
   StackDivider
 } from "@chakra-ui/react";
-import SearchedUser from "../components/SearchedUser";
 import EventsItem from "../components/EventsItem";
 
 const DUMMY_EVENTS = [
   {
+    id: 1,
     date: "Jan. 9th, 2023",
     title: "New Host in Berlin",
     desc: "Please welcome our new host, Julia Roberts. She is new in Berlin. Make sure to contact her to organize a musical evening!",
   },
   {
+    id: 2,
     date: "Jan. 3rd, 2023",
     title: "New Musician in Berlin",
     desc: "Jascha Heifetz is a new member of Music House. He has just completed his recording with Deutsche Grammophon.",
   },
   {
+    id: 3,
     date: "Dec. 7th, 2022",
     title: "New Host in Berlin",
     desc: "Say hello to our new host, Clara Schumann. For those interested in piano chamber music, she has a grand piano in the house.",
   },
   {
+    id: 4,
     date: "Nov. 15th, 2022",
     title: "New Musician in Berlin",
     desc: "Everyone knows Bob De Niro... He's been singing a lot lately, and is eager to display his new talents!",
@@ -56,7 +58,7 @@ function WelcomePage() {
         >
       {DUMMY_EVENTS.map((event) => {
         return (
-          <EventsItem date={event.date} title={event.title} desc={event.desc} />
+          <EventsItem key={event.id} date={event.date} title={event.title} desc={event.desc} />
         )
       })}
       </VStack>

@@ -104,6 +104,7 @@ export default function Navigation() {
 
   useEffect(() => {
     if (!signedInUser[id]) return;
+    console.log(signedInUser[id][activeAs])
     const toBeSetUrl =
       signedInUser[id] && signedInUser[id][activeAs]
         ? signedInUser[id][activeAs].pictureUrl
@@ -113,7 +114,7 @@ export default function Navigation() {
     setHasTwoAccounts(userHasTwoAccounts);
   }, [id, activeAs, signedInUser, searchType]); //useEffect here because by the time this comp. renders, signedInUser is not available
 
-  const logOut = () => {
+  const logOut = () => { //figure out how to 'nest buttons' (it's not allowed)
     signOff();
     navigate("/sign-in");
   };
