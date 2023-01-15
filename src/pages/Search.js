@@ -88,12 +88,6 @@ function Search() {
             <SearchedUser name={name} pictureUrl={pictureUrl} description={description} key={key}/>
           );
         })}
-          {/* <SearchedUser
-            name={name}
-            pictureUrl={pictureUrl}
-            description={description}
-            key={key}
-          /> */}
         </VStack>
       </Box>
     </Box>

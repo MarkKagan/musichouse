@@ -18,6 +18,8 @@ import Favorites from "./pages/Favorites";
 import { FilteredUsersContextProvider } from "./filtered-users-context/FilteredUsersContextProvider";
 import EvenMorePrivateRoute from "./routes/EvenMorePrivateRoute";
 import Explanation from "./pages/Explanation";
+import WelcomePage from "./pages/WelcomePage";
+import FooterSpace from "./components/FooterSpace";
 
 
 function App() {
@@ -47,12 +49,17 @@ function App() {
                           <Navigation />
                           <Routes>
                             <Route
+                              path="/welcome"
+                              element={<PersonalProfile />}
+                            />
+                            <Route
                               path="/personal-profile"
                               element={<PersonalProfile />}
                             />
                             <Route path="/search" element={<Search />} />
                             <Route path="/favorites" element={<Favorites />} />
                           </Routes>
+                          <FooterSpace />
                         </EvenMorePrivateRoute>
                       </FilteredUsersContextProvider>
                     }

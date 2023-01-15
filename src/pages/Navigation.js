@@ -40,9 +40,7 @@
 
 // export default LandingPage;
 
-
-
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Box,
   Flex,
@@ -59,18 +57,19 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-  Heading
+  Heading,
+  Image,
+  Text
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-
-import {useState} from 'react';
+import { useState } from "react";
 import LogoutButton from "../logging-in/LogoutButton";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 import AccountToggleButton from "../logging-in/AccountToggleButton";
 import { useNavigate, Link as ReactLink } from "react-router-dom";
-
+import WelcomePage from "./WelcomePage";
 
 const NavLink = (
   { to, children } //: { children: ReactNode } removed
@@ -92,31 +91,39 @@ const NavLink = (
 );
 
 export default function Navigation() {
-  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [profilePicUrl, setProfilePicUrl] = useState("");
   const [hasTwoAccounts, setHasTwoAccounts] = useState();
   const navigate = useNavigate();
-  
-  const { user, activeAs } = useUserAuth();
+
+  const { user, activeAs, logOut: signOff } = useUserAuth();
   const id = user.uid;
   const searchType = activeAs === "musician" ? "host" : "musician";
   const { signedInUser } = useFilteredUsersContext();
 
+
+
   useEffect(() => {
     if (!signedInUser[id]) return;
-    const toBeSetUrl = signedInUser[id] && signedInUser[id][activeAs] ? signedInUser[id][activeAs].pictureUrl : '';
+    const toBeSetUrl =
+      signedInUser[id] && signedInUser[id][activeAs]
+        ? signedInUser[id][activeAs].pictureUrl
+        : "";
     setProfilePicUrl(toBeSetUrl);
     const userHasTwoAccounts = signedInUser[id][searchType].active === true;
     setHasTwoAccounts(userHasTwoAccounts);
-  }, [signedInUser]) //useEffect here because by the time this comp. renders, signedInUser is not available
+  }, [id, activeAs, signedInUser, searchType]); //useEffect here because by the time this comp. renders, signedInUser is not available
 
-  
+  const logOut = () => {
+    signOff();
+    navigate("/sign-in");
+  };
+
   const Links = [`Search for ${searchType}s`, "Favorites"];
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-
   return (
-    <Box backgroundColor="#FEFCBF" zIndex="overlay">
+    <Box height="-webkit-fit-content" backgroundColor="#FEFCBF" >
       <Box
         bg={useColorModeValue("blue.100", "gray.900")}
         px={4}
@@ -132,7 +139,12 @@ export default function Navigation() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box>Logo</Box>
+            <Image
+              width="40px"
+              alt="clef-icon"
+              src={require("../assets/treble-clef-red-icon.png")}
+            />
+
             <HStack
               as={"nav"}
               spacing={4}
@@ -164,20 +176,20 @@ export default function Navigation() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar size={"sm"} src={profilePicUrl} />
+                <Avatar width="40px" height="40px" src={profilePicUrl} />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
+                <MenuItem>My Profile</MenuItem>
                 <MenuDivider />
                 {hasTwoAccounts && (
                   <MenuItem>
-                    <AccountToggleButton />
+                    {/* <AccountToggleButton /> */}
                   </MenuItem>
                 )}
                 <MenuDivider />
                 <MenuItem>
-                  <LogoutButton />
+                  {/* <LogoutButton /> */}
+                  {/* <Text onClick={logOut}>Logout</Text> */}
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -194,6 +206,8 @@ export default function Navigation() {
           </Box>
         ) : null}
       </Box>
+
+      <WelcomePage />
     </Box>
   );
 }
