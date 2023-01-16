@@ -45,6 +45,7 @@ function Search() {
   //don't forget to use key when creating the list
   return (
     // <Center backgroundColor="yellow.100" display="flex-bloc" justifyContent="center">
+    //why does marginTop not work??????????????????
     <Box backgroundColor="yellow.100">
       <Box display="flex-block">
         <Heading
@@ -52,6 +53,8 @@ function Search() {
           textColor="#FF4651"
           display="flex"
           justifyContent="center"
+          fontSize="2em"
+          paddingTop="1em"
         >
           Available {searchType}s :{" "}
         </Heading>

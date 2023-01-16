@@ -68,7 +68,7 @@ import LogoutButton from "../logging-in/LogoutButton";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 import AccountToggleButton from "../logging-in/AccountToggleButton";
-import { useNavigate, Link as ReactLink } from "react-router-dom";
+import { useNavigate, Link as ReactLink, NavLink as ReactNavLink} from "react-router-dom";
 import WelcomePage from "./WelcomePage";
 
 const NavLink = (
@@ -82,7 +82,7 @@ const NavLink = (
       textDecoration: "none",
       bg: useColorModeValue("yellow.100", "gray.700"),
     }}
-    as={ReactLink}
+    as={ReactNavLink}
     // href={"#"}
     to={to}
   >
@@ -93,6 +93,9 @@ const NavLink = (
 export default function Navigation() {
   const [profilePicUrl, setProfilePicUrl] = useState("");
   const [hasTwoAccounts, setHasTwoAccounts] = useState();
+  // //FAVS STATE FOR PASSING FAVS BETWEEN CHILDREN (Search(SearchedUser)/Favorites)
+  // const [newFavs, setNewFavs] = useState([]);
+
   const navigate = useNavigate();
 
   const { user, activeAs, logOut: signOff } = useUserAuth();
@@ -123,8 +126,11 @@ export default function Navigation() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  //WHAT Z INDEX IS NEEDED FOR THE DROPDOWN MENU????
+
+
   return (
-    <Box height="-webkit-fit-content" backgroundColor="#FEFCBF" >
+    <Box height="-webkit-fit-content" backgroundColor="#FEFCBF">
       <Box
         bg={useColorModeValue("blue.100", "gray.900")}
         px={4}
@@ -156,6 +162,7 @@ export default function Navigation() {
               ))} */}
               <NavLink to="/search">{`Search for ${searchType}s`}</NavLink>
               <NavLink to="/favorites">Favorites</NavLink>
+              <NavLink to="/welcome-page">News</NavLink>
             </HStack>
           </HStack>
 
@@ -208,7 +215,6 @@ export default function Navigation() {
         ) : null}
       </Box>
 
-      <WelcomePage />
     </Box>
   );
 }

@@ -22,6 +22,7 @@ import WelcomePage from "./pages/WelcomePage";
 import FooterSpace from "./components/FooterSpace";
 
 
+
 function App() {
 
   return (
@@ -47,19 +48,21 @@ function App() {
                       <FilteredUsersContextProvider>
                         <EvenMorePrivateRoute>
                           <Navigation />
-                          
-                          <Routes>
-                            <Route
-                              path="/welcome"
-                              element={<PersonalProfile />}
-                            />
-                            <Route
-                              path="/personal-profile"
-                              element={<PersonalProfile />}
-                            />
-                            <Route path="/search" element={<Search />} />
-                            <Route path="/favorites" element={<Favorites />} />
-                          </Routes>
+                            <Routes>
+                              <Route
+                                path="/welcome-page"
+                                element={<WelcomePage />}
+                              />
+                              <Route
+                                path="/personal-profile"
+                                element={<PersonalProfile />}
+                              />
+                              <Route path="/search" element={<Search />} />
+                              <Route
+                                path="/favorites"
+                                element={<Favorites />}
+                              />
+                            </Routes>
                           <FooterSpace />
                         </EvenMorePrivateRoute>
                       </FilteredUsersContextProvider>

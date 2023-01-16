@@ -104,7 +104,7 @@ function Home() {
             <ChakraLink
               style={{ textDecoration: "none" }}
               as={Link}
-              to="/landing-page"
+              to="/welcome-page"
               onClick={loginAsMusician}
             >
               <Button disabled={!accounts.musician} colorScheme="yellow">
@@ -125,7 +125,7 @@ function Home() {
             <ChakraLink
               style={{ textDecoration: "none" }}
               as={Link}
-              to="/landing-page"
+              to="/welcome-page"
               onClick={loginAsHost}
             >
               <Button disabled={!accounts.host} colorScheme="blue">

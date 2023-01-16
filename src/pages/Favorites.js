@@ -1,7 +1,10 @@
+import {VStack} from "@chakra-ui/react";
 
 function Favorites() {
   return (
-    <div>Here list the users that have been added to the favorites.</div>
+    <VStack backgroundColor="yellow.100" minHeight="100vh">
+
+    </VStack>
   )
 }
 

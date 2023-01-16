@@ -38,7 +38,7 @@ const DUMMY_EVENTS = [
 
 function WelcomePage() {
   return (
-    <VStack>
+    <VStack height="-webkit-fit-content" backgroundColor="yellow.100">
       <Box>
         <Heading margin="30px">
           <Text as='u' textColor="blue.300" fontStyle="oblique" fontSize="md">
