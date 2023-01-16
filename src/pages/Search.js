@@ -39,10 +39,6 @@ function Search() {
   // console.log('searchResults - filteredUsers: ', filteredUsers);
 
 
-
-
-
-  //don't forget to use key when creating the list
   return (
     // <Center backgroundColor="yellow.100" display="flex-bloc" justifyContent="center">
     //why does marginTop not work??????????????????
