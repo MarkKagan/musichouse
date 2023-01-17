@@ -69,7 +69,8 @@ import { useUserAuth } from "../firebase/UserAuthContext";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 import AccountToggleButton from "../logging-in/AccountToggleButton";
 import { useNavigate, Link as ReactLink, NavLink as ReactNavLink} from "react-router-dom";
-import WelcomePage from "./WelcomePage";
+import UserProfile from "../components/UserProfile";
+
 
 const NavLink = (
   { to, children } //: { children: ReactNode } removed
@@ -107,7 +108,7 @@ export default function Navigation() {
 
   useEffect(() => {
     if (!signedInUser[id]) return;
-    console.log(signedInUser[id][activeAs])
+
     const toBeSetUrl =
       signedInUser[id] && signedInUser[id][activeAs]
         ? signedInUser[id][activeAs].pictureUrl
@@ -117,10 +118,10 @@ export default function Navigation() {
     setHasTwoAccounts(userHasTwoAccounts);
   }, [id, activeAs, signedInUser, searchType]); //useEffect here because by the time this comp. renders, signedInUser is not available
 
-  const logOut = () => { //figure out how to 'nest buttons' (it's not allowed)
-    signOff();
-    navigate("/sign-in");
-  };
+  // const logOut = () => { //figure out how to 'nest buttons' (it's not allowed)
+  //   signOff();
+  //   navigate("/sign-in");
+  // };
 
   const Links = [`Search for ${searchType}s`, "Favorites"];
 
@@ -175,7 +176,7 @@ export default function Navigation() {
             Music House
           </Heading>
 
-          <Flex alignItems={"center"}>
+          <Flex alignItems={"center"} zIndex="10000">
             <Menu>
               <MenuButton
                 as={Button}
@@ -187,17 +188,16 @@ export default function Navigation() {
                 <Avatar width="40px" height="40px" src={profilePicUrl} />
               </MenuButton>
               <MenuList>
-                <MenuItem>My Profile</MenuItem>
+                <MenuItem onClick={() => {navigate("/personal-profile")}}>My Profile</MenuItem>
                 <MenuDivider />
                 {hasTwoAccounts && (
                   <MenuItem>
-                    {/* <AccountToggleButton /> */}
+                    <AccountToggleButton />
                   </MenuItem>
                 )}
                 <MenuDivider />
                 <MenuItem>
-                  {/* <LogoutButton /> */}
-                  {/* <Text onClick={logOut}>Logout</Text> */}
+                  <LogoutButton />
                 </MenuItem>
               </MenuList>
             </Menu>

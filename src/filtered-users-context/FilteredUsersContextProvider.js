@@ -5,7 +5,7 @@ import { database } from "../firebase";
 
 
 
-const FilteredUsersContext = createContext({searchableUsers: {}, signedInUser: {}});
+const FilteredUsersContext = createContext({searchableUsers: {}, signedInUser: {}, favorites: [], setFavorites: () => {}});
 
 export const FilteredUsersContextProvider = ({children}) => {
   const {activeAs, user: currentUser} = useUserAuth();
@@ -13,12 +13,13 @@ export const FilteredUsersContextProvider = ({children}) => {
 
   const [searchableUsers, setSearchableUsers] = useState([]);
   const [signedInUser, setSignedInUser] = useState({});
+  const [favorites, setFavorites] = useState([]);
 
   const searchType = activeAs === 'musician' ? 'host' : 'musician';
 
 
   useEffect(() => {
-    if (!activeAs) {
+    if (!activeAs || !signedInUserId) {
       console.log("activeAs is not defined...there is some error!");
       return;
     }
@@ -28,7 +29,9 @@ export const FilteredUsersContextProvider = ({children}) => {
         const allUsers = await get(child(usersRef, '/'));
         if (allUsers.exists()) {
           const filteredUsers = Object.fromEntries(Object.entries(allUsers.val()).filter(([key, val]) => {
-            return (signedInUserId !== key && val[searchType].active === true);
+            if (val[searchType]) {
+              return (signedInUserId !== key && val[searchType].active === true);
+            }
           }).map(([key, val]) => {
             return [key, val[searchType]]; 
           }));
@@ -37,8 +40,13 @@ export const FilteredUsersContextProvider = ({children}) => {
               return signedInUserId === key;
             })
           );
+
           setSearchableUsers(filteredUsers);
           setSignedInUser(me);
+          const favs = me[signedInUserId][activeAs].favorites
+            ? me[signedInUserId][activeAs].favorites
+            : [];
+          setFavorites(favs)
         }
       } catch (error) {
         console.log(error);
@@ -46,13 +54,14 @@ export const FilteredUsersContextProvider = ({children}) => {
     };
     emptyFilteredUsers(); 
 
+
     return () => {
       emptyFilteredUsers();
     }
   }, [activeAs])
 
   return (
-    <FilteredUsersContext.Provider value={{searchableUsers, signedInUser}}>
+    <FilteredUsersContext.Provider value={{searchableUsers, signedInUser, favorites, setFavorites}}>
       {children}
     </FilteredUsersContext.Provider>
   )

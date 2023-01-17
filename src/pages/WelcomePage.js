@@ -38,14 +38,14 @@ const DUMMY_EVENTS = [
 
 function WelcomePage() {
   return (
-    <VStack height="-webkit-fit-content" backgroundColor="yellow.100">
-      <Box>
-        <Heading margin="30px">
-          <Text as='u' textColor="blue.300" fontStyle="oblique" fontSize="md">
-            Latest Events in Music House :{" "}
-          </Text>
-        </Heading>
-      </Box>
+      <VStack backgroundColor="yellow.100" minHeight="100vh">
+        <Box>
+          <Heading margin="30px">
+            <Text as="u" textColor="blue.300" fontStyle="oblique" fontSize="md">
+              Latest Events in Music House :{" "}
+            </Text>
+          </Heading>
+        </Box>
         <VStack
           divider={<StackDivider borderColor="gray.200" />}
           spacing={4}
@@ -56,13 +56,18 @@ function WelcomePage() {
           borderRadius="20px"
           borderColor="blue.100"
         >
-      {DUMMY_EVENTS.map((event) => {
-        return (
-          <EventsItem key={event.id} date={event.date} title={event.title} desc={event.desc} />
-        )
-      })}
+          {DUMMY_EVENTS.map((event) => {
+            return (
+              <EventsItem
+                key={event.id}
+                date={event.date}
+                title={event.title}
+                desc={event.desc}
+              />
+            );
+          })}
+        </VStack>
       </VStack>
-    </VStack>
   );
 }
 

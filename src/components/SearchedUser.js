@@ -1,100 +1,62 @@
-import {
-  Text,
-  HStack,
-  VStack,
-  Image,
-  IconButton,
-  Flex,
-} from "@chakra-ui/react";
+import { Text, HStack, VStack, Image, IconButton, Box } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
-import { ref as databaseRef, update, get, child } from "firebase/database";
-import { useEffect, useState } from "react";
+import {
+  ref as databaseRef,
+  update,
+  get,
+  child,
+  onValue,
+} from "firebase/database";
+import { useEffect, useState, useCallback } from "react";
 import { database } from "../firebase";
 import { useUserAuth } from "../firebase/UserAuthContext";
 
-function SearchedUser({ name, pictureUrl, description, id }) {
-  const { signedInUser } = useFilteredUsersContext();
+function SearchedUser({ name, pictureUrl, description, id, email, phone }) {
+  const { signedInUser, favorites, setFavorites } = useFilteredUsersContext();
   const { user, activeAs } = useUserAuth();
+
   const [inFavs, setInFavs] = useState(null);
-  const [currentFavs, setCurrentFavs] = useState(null);
 
-  const favoriteHandler = async () => {
-    if (!signedInUser) return;
-    // if (inFavs) {
+  useEffect(() => {
+    console.log(id);
 
-    // }
-    const refToUserPath = databaseRef(database, `${user.uid}/${activeAs}`);
-    const currentFavorites = signedInUser[user.uid][activeAs]?.favorites?.length
-      ? signedInUser[user.uid][activeAs].favorites
-      : [];
-    console.log("CURRENT FAVORITES", currentFavorites);
-    const updatedFavorites = () => {
-      if (currentFavorites.includes(id)) {
-        const indexOfId = currentFavorites.indexOf(id);
-        return currentFavorites.splice(indexOfId, 1); //check result
-      } else {
-        return currentFavorites.concat([id]);
-      }
-    };
-    console.log("updatedFavorites()", updatedFavorites());
-    const updatedFavoritesProp = { favorites: updatedFavorites() };
+    if (favorites.includes(id)) setInFavs(true);
+    else setInFavs(false);
+  }, [favorites]);
+
+  const favoriteHandler = () => {
+    const refToUsersFavs = databaseRef(database, `${user.uid}/${activeAs}`);
+    if (inFavs) {
+      const tempFavs = favorites.filter((favorite) => {
+        return favorite !== id;
+      });
+      setFavorites(tempFavs);
+      updateFavoritesRequest(refToUsersFavs, { favorites: tempFavs });
+    } else {
+      const tempFavs = [...favorites, id];
+      setFavorites(tempFavs);
+      updateFavoritesRequest(refToUsersFavs, { favorites: tempFavs });
+    }
+
+    setInFavs(!inFavs);
+  };
+
+  const updateFavoritesRequest = async (ref, obj) => {
     try {
-      await update(refToUserPath, updatedFavoritesProp);
-      console.log(
-        `SUCCESS - ${name} ${
-          inFavs ? "removed from" : "added to"
-        } your favorites!`
-      );
-      setInFavs(!inFavs);
+      await update(ref, obj);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // console.log(inFavs)
-
-  useEffect(() => {
-    if (!signedInUser) return;
-
-
-    const emptyFaveSetter = async () => {
-      try {
-        const signedInUserRef = databaseRef(database, `${user.id}`);
-        const userOb = await get(child(signedInUserRef, "/"));
-        if (userOb.exists()) {
-          const faves = Object.fromEntries(
-            Object.entries(userOb.val()[user.uid][activeAs].favorites)
-          );
-          setCurrentFavs(faves);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    emptyFaveSetter();
-
-
-    let inFavorites;
-    const pathToFavs = signedInUser[user.uid][activeAs].favorites;
-    console.log(pathToFavs);
-    if (!pathToFavs) inFavorites = false;
-    else {
-      if (!pathToFavs.includes(id)) {
-        inFavorites = false;
-      } else {
-        if (pathToFavs.includes(id)) {
-          inFavorites = true;
-        }
-      }
-    }
-    setInFavs(inFavorites);
-
-    return () => {   //is this right??
-      emptyFaveSetter();
-    }
-
-  }, [signedInUser[user.uid][activeAs].favorites]); //why not pathToFavs?
+  if (!favorites) {
+    return (
+      <Box>
+        <Text>No Favorites selected yet...</Text>
+      </Box>
+    );
+  }
 
   return (
     <HStack>
@@ -108,6 +70,8 @@ function SearchedUser({ name, pictureUrl, description, id }) {
       <VStack>
         <Text color="#FF4651">{name}</Text>
         <Text>"{description}"</Text>
+        <Text fontSize="sm">{`Email : ${email}`}</Text>
+        <Text fontSize="sm">{`Phone : ${phone}`}</Text>
       </VStack>
       <IconButton
         colorScheme="blue"

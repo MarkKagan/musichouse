@@ -14,8 +14,8 @@ import {
 
 function Home() {
   const { user } = useUserAuth();
-  const [signedInUser, setSignedInUser] = useState({});
-  const [accounts, setAccounts] = useState({});
+  const [musician, setMusician] = useState();
+  const [host, setHost] = useState();
 
   useEffect(() => {
     const unsubscribe = async () => {
@@ -28,21 +28,12 @@ function Home() {
               return user.uid === key;
             })
           );
-          setSignedInUser(me);
-        }
-        if (!signedInUser) return;
-        else {
-          if (
-            signedInUser[user.uid]["musician"] &&
-            signedInUser[user.uid]["musician"].active
-          ) {
-            setAccounts({ musician: true });
+
+          if (me[user.uid]["musician"] && me[user.uid]["musician"].active) {
+            setMusician(true);
           }
-          if (
-            signedInUser[user.uid]["host"] &&
-            signedInUser[user.uid]["host"].active
-          ) {
-            setAccounts({ host: true });
+          if (me[user.uid]["host"] && me[user.uid]["host"].active) {
+            setHost(true);
           }
         }
       } catch (error) {
@@ -55,7 +46,7 @@ function Home() {
     return () => {
       unsubscribe();
     };
-  }, [signedInUser]);
+  }, []);
 
   const { setActiveAs } = useUserAuth();
 
@@ -107,12 +98,12 @@ function Home() {
               to="/welcome-page"
               onClick={loginAsMusician}
             >
-              <Button disabled={!accounts.musician} colorScheme="yellow">
+              <Button disabled={!musician} colorScheme="yellow">
                 Enter as a musician
               </Button>
             </ChakraLink>
 
-            {!accounts.musician && (
+            {!musician && (
               <Text fontSize="sm" display="flex" justifyContent="center">
                 <ChakraLink color="blue.400" as={Link} to="/musician-form">
                   Register as a musician
@@ -128,11 +119,11 @@ function Home() {
               to="/welcome-page"
               onClick={loginAsHost}
             >
-              <Button disabled={!accounts.host} colorScheme="blue">
+              <Button disabled={!host} colorScheme="blue">
                 Enter as a host
               </Button>
             </ChakraLink>
-            {!accounts.host && (
+            {!host && (
               <Text fontSize="sm" display="flex" justifyContent="center">
                 <ChakraLink color="blue.400" as={Link} to="/host-form">
                   <span>Register as a host</span>

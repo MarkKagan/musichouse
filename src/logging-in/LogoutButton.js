@@ -1,6 +1,7 @@
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { useNavigate } from "react-router";
 
+
 function LogoutButton() {
   const {user, logOut: signOff} = useUserAuth();
   const navigate = useNavigate();

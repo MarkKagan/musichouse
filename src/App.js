@@ -20,6 +20,7 @@ import EvenMorePrivateRoute from "./routes/EvenMorePrivateRoute";
 import Explanation from "./pages/Explanation";
 import WelcomePage from "./pages/WelcomePage";
 import FooterSpace from "./components/FooterSpace";
+import UserProfile from "./components/UserProfile";
 
 
 
@@ -55,7 +56,7 @@ function App() {
                               />
                               <Route
                                 path="/personal-profile"
-                                element={<PersonalProfile />}
+                                element={<UserProfile />}
                               />
                               <Route path="/search" element={<Search />} />
                               <Route
