@@ -1,45 +1,3 @@
-// import LogoutButton from "../logging-in/LogoutButton";
-// import { NavLink } from "react-router-dom";
-// import { useUserAuth } from "../firebase/UserAuthContext";
-// import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
-// import AccountToggleButton from "../logging-in/AccountToggleButton";
-// // import ProfileDropDown from "../components/ProfileDropDown";
-
-// function LandingPage() {
-//   const { activeAs } = useUserAuth();
-
-//   const searchType = activeAs === "musician" ? "host" : "musician";
-
-//   const {searchableUsers, signedInUser} = useFilteredUsersContext();
-
-//   return (
-//     <div>
-//       <nav>
-//         <ul>
-//           <li>
-//             {/* <ProfileDropDown /> */}
-//             <NavLink to="/personal-profile">Profile</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/search">{`Search for ${searchType}s`}</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/favorites">Favorites</NavLink>
-//           </li>
-//           <li>
-//             <LogoutButton />
-//           </li>
-//           <li>
-//             <AccountToggleButton />
-//           </li>
-//         </ul>
-//       </nav>
-//     </div>
-//   );
-// }
-
-// export default LandingPage;
-
 import { useEffect } from "react";
 import {
   Box,
@@ -59,7 +17,6 @@ import {
   Stack,
   Heading,
   Image,
-  Text
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -68,13 +25,9 @@ import LogoutButton from "../logging-in/LogoutButton";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { useFilteredUsersContext } from "../filtered-users-context/FilteredUsersContextProvider";
 import AccountToggleButton from "../logging-in/AccountToggleButton";
-import { useNavigate, Link as ReactLink, NavLink as ReactNavLink} from "react-router-dom";
-import UserProfile from "../components/UserProfile";
+import { useNavigate, NavLink as ReactNavLink } from "react-router-dom";
 
-
-const NavLink = (
-  { to, children } //: { children: ReactNode } removed
-) => (
+const NavLink = ({ to, children }) => (
   <Link
     px={2}
     py={1}
@@ -84,7 +37,6 @@ const NavLink = (
       bg: useColorModeValue("yellow.100", "gray.700"),
     }}
     as={ReactNavLink}
-    // href={"#"}
     to={to}
   >
     {children}
@@ -94,8 +46,6 @@ const NavLink = (
 export default function Navigation() {
   const [profilePicUrl, setProfilePicUrl] = useState("");
   const [hasTwoAccounts, setHasTwoAccounts] = useState();
-  // //FAVS STATE FOR PASSING FAVS BETWEEN CHILDREN (Search(SearchedUser)/Favorites)
-  // const [newFavs, setNewFavs] = useState([]);
 
   const navigate = useNavigate();
 
@@ -103,8 +53,6 @@ export default function Navigation() {
   const id = user.uid;
   const searchType = activeAs === "musician" ? "host" : "musician";
   const { signedInUser } = useFilteredUsersContext();
-
-
 
   useEffect(() => {
     if (!signedInUser[id]) return;
@@ -127,9 +75,6 @@ export default function Navigation() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  //WHAT Z INDEX IS NEEDED FOR THE DROPDOWN MENU????
-
-
   return (
     <Box height="-webkit-fit-content" backgroundColor="#FEFCBF">
       <Box
@@ -137,6 +82,7 @@ export default function Navigation() {
         px={4}
         borderBottomLeftRadius="20px"
         borderBottomRightRadius="20px"
+        // position="relative"
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
@@ -171,7 +117,10 @@ export default function Navigation() {
             fontStyle="oblique"
             textColor="#FF4651"
             position="absolute"
-            left="582px"
+            left="50%"
+            style={{
+              transform: "translateX(-50%)",
+            }}
           >
             Music House
           </Heading>
@@ -188,7 +137,13 @@ export default function Navigation() {
                 <Avatar width="40px" height="40px" src={profilePicUrl} />
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={() => {navigate("/personal-profile")}}>My Profile</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/personal-profile");
+                  }}
+                >
+                  My Profile
+                </MenuItem>
                 <MenuDivider />
                 {hasTwoAccounts && (
                   <MenuItem>
@@ -214,7 +169,6 @@ export default function Navigation() {
           </Box>
         ) : null}
       </Box>
-
     </Box>
   );
 }

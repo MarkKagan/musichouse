@@ -59,7 +59,7 @@ function SearchedUser({ name, pictureUrl, description, id, email, phone }) {
   }
 
   return (
-    <HStack>
+    <HStack justifyContent={"space-between"}>
       <Image
         src={pictureUrl}
         alt={name}

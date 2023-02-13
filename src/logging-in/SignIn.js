@@ -11,10 +11,11 @@ import {
   Link as ChakraLink,
   FormLabel,
   Input,
-  RangeSliderThumb,
   Text,
   FormErrorMessage,
   Center,
+  Flex,
+  Image
 } from "@chakra-ui/react";
 
 
@@ -82,14 +83,20 @@ function SignIn() {
             </Button>
           </FormControl>
         </form>
-
-        <Text>
-          Not registered yet?{" "}
-          <ChakraLink color="blue.300" as={Link} to="/sign-up">
-            {" "}
-            Sign Up
-          </ChakraLink>
-        </Text>
+        <Flex justifyContent="space-between">
+          <Text>
+            Not registered yet?{" "}
+            <ChakraLink color="blue.300" as={Link} to="/sign-up">
+              {" "}
+              Sign Up
+            </ChakraLink>
+          </Text>
+          <Image
+            width="40px"
+            alt="clef-icon"
+            src={require("../assets/treble-clef-red-icon.png")}
+          />
+        </Flex>
       </Box>
     </Center>
   );

@@ -15,7 +15,9 @@ import {
   FormLabel,
   Input,
   Text,
-  Center
+  Center,
+  Image,
+  Flex
 } from "@chakra-ui/react";
 
 
@@ -24,7 +26,6 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // const { user } = useUserAuth();
 
   const emailChangeHandler = (event) => {
     event.preventDefault();
@@ -104,14 +105,20 @@ function SignUp() {
             </Button>
           </FormControl>
         </form>
-
-        <Text>
-          Already have an account?{" "}
-          <ChakraLink color="blue.300" as={Link} to="/sign-in">
-            {" "}
-            Login
-          </ChakraLink>
-        </Text>
+        <Flex justifyContent="space-between">
+          <Text>
+            Already have an account?{" "}
+            <ChakraLink color="blue.300" as={Link} to="/sign-in">
+              {" "}
+              Login
+            </ChakraLink>
+          </Text>
+          <Image
+            width="40px"
+            alt="clef-icon"
+            src={require("../assets/treble-clef-red-icon.png")}
+          />
+        </Flex>
       </Box>
     </Center>
   );
