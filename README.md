@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Music House
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center"> 
+  <img src="./src/assets/treble-clef-red-icon.png" style="width:100px;height:auto;"/>
+</p>
 
-## Available Scripts
+Music House is an app which helps the classical music community to thrive by providing a straightforward way for musicians and hosts to find each other. 
 
-In the project directory, you can run:
+## Screenshots
 
-### `npm start`
+<p align="center" >
+  <img src="./src/assets/app-demo1.png" style="width:40vw;height:auto;" />
+</p>
+<p align="center" >
+  <img src="./src/assets/app-demo2.png" style="width:40vw;height:auto;" />
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Follow these instructions to setup your own environment to run Music House.
 
-### `npm test`
+* [Firebase](https://firebase.google.com/) - a Google Back-end service provider
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  Follow the steps to create a project with their free-tier option, and extract the project's config JSON file variables into your 
+  .env file (which should be located at the root of your project folder).
 
-### `npm run build`
+  Note that you will need to initialize the Auth Services (with Email/Password option), as well as the Realtime Database and Storage Services.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Your .env file should look like this, with the variable values being the actual values given in your Firebase config object.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+REACT_APP_API_KEY=apiKey
+REACT_APP_AUTH_DOMAIN=authDomain
+REACT_APP_PROJECT_ID=projectId
+REACT_APP_STORAGE_BUCKET=storageBucket
+REACT_APP_MESSAGING_SENDER_ID=messagingSenderId
+REACT_APP_APP_ID= appId
+REACT_APP_MEASUREMENT_ID=measurementId
+REACT_APP_DATABASE_URL=databaseURL
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+1. Clone this repo and enter!
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   git clone https://github.com/MarkKagan/musichouse
+   cd musichouse
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install dependencies.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Run the app.
 
-## Learn More
+    ```bash 
+    npm start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Tech Stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* React
+* Firebase Auth
+* Firebase Realtime Database
+* Firebase Storage
+* Leaflet API
+* OpenStreetMap API
+* Chakra UI
 
-### Code Splitting
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Mark Kagan - [GitHub](https://github.com/MarkKagan) - [LinkedIn](https://www.linkedin.com/in/mark-kagan/)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
